@@ -2,7 +2,9 @@ package com.mygdx.bounceodyssey;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.bounceodyssey.Player.Player;
 import com.mygdx.bounceodyssey.Screens.Playscreen;
+
 
 public class BounceOdysseyGame extends Game {
 	public static final  int V_Width = 400;
@@ -12,7 +14,8 @@ public class BounceOdysseyGame extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		 setScreen(new Playscreen(this));
+		setScreen(new Playscreen(this));
+		Player player = new Player();
 	}
 
 	@Override
