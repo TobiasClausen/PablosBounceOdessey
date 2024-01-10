@@ -24,10 +24,10 @@ public class ControlSystem {
 
     private TextButton leftbutton;
 
-    private boolean isJumpbuttonPressed = false;
-    private boolean isleftbuttonPressed =false;
+    public boolean isJumpbuttonPressed = false;
+    public boolean isleftbuttonPressed =false;
 
-    private boolean isrightbuttonPressed = false;
+    public boolean isrightbuttonPressed = false;
 
     public ControlSystem(Stage stage) {
         this.stage = stage;
@@ -36,9 +36,7 @@ public class ControlSystem {
         rightbutton();
 
     }
-    public boolean isJumpbuttonPressed() {
-        return isJumpbuttonPressed;
-    }
+
     public void jumpbutton(){
         this.skin = new Skin();
 
@@ -79,9 +77,6 @@ public class ControlSystem {
     }
 
 
-    public boolean isleftbuttonPressed() {
-        return isleftbuttonPressed;
-    }
     public void leftbutton(){
         this.skin = new Skin();
 
@@ -125,9 +120,7 @@ public class ControlSystem {
 
 
 
-    public boolean isrightbuttonPressed() {
-        return isrightbuttonPressed;
-    }
+
 
     public void rightbutton(){
         this.skin = new Skin();
@@ -169,28 +162,44 @@ public class ControlSystem {
     }
 
     public void updateInput(){
-
-
         Jumpbutton.addListener(new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 isJumpbuttonPressed = true;
+                return true;
+            }
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                isJumpbuttonPressed = false;
             }
         });
+
         leftbutton.addListener(new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 isleftbuttonPressed = true;
+                return true;
+            }
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                isleftbuttonPressed = false;
             }
         });
+
         rightbutton.addListener(new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 isrightbuttonPressed = true;
+                return true;
+            }
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                isrightbuttonPressed = false;
             }
         });
 
     }
+
 
 
 

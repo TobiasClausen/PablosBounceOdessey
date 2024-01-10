@@ -1,7 +1,5 @@
 package com.mygdx.bounceodyssey.Screens;
 
-import com.mygdx.bounceodyssey.mypackage.GameConstants;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -26,6 +24,8 @@ import com.mygdx.bounceodyssey.BounceOdysseyGame;
 import com.mygdx.bounceodyssey.ControlSystem.ControlSystem;
 import com.mygdx.bounceodyssey.DataDisplay.DataDisplay;
 import com.mygdx.bounceodyssey.Player.Player;
+import com.mygdx.bounceodyssey.mypackage.GameConstants;
+
 
 
 public class Playscreen implements Screen {
@@ -51,25 +51,23 @@ public class Playscreen implements Screen {
     private BounceOdysseyGame game;
     private OrthographicCamera gamecam;
     private Viewport gamePort;
-    public Playscreen(BounceOdysseyGame game){
+    public Playscreen(BounceOdysseyGame game) {
         this.game = game;
 
 
-
-
         gamecam = new OrthographicCamera();
-        gamePort = new FitViewport(BounceOdysseyGame.V_Width/BounceOdysseyGame.PPM, BounceOdysseyGame.V_Height/BounceOdysseyGame.PPM, gamecam);
+        gamePort = new FitViewport(BounceOdysseyGame.V_Width / BounceOdysseyGame.PPM, BounceOdysseyGame.V_Height / BounceOdysseyGame.PPM, gamecam);
         dataDisplay = new DataDisplay(game.batch);
 
         controlSystem = new ControlSystem(stage);
 
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("Map.tmx");
-        renderer = new OrthogonalTiledMapRenderer(map, 1/BounceOdysseyGame.PPM);
+        renderer = new OrthogonalTiledMapRenderer(map, 1 / BounceOdysseyGame.PPM);
 
-        gamecam.position.set(gamePort.getWorldWidth()/2, gamePort.getWorldHeight()/2, 0);
+        gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
-        world = new World(new Vector2(0, -10/BounceOdysseyGame.PPM), true);
+        world = new World(new Vector2(0, -50 / BounceOdysseyGame.PPM), true);
         b2dr = new Box2DDebugRenderer();
 
         player = new Player(world);
@@ -80,73 +78,23 @@ public class Playscreen implements Screen {
         Body body;
 
 
-        //ground
-        for (MapObject object : map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rect = ((RectangleMapObject)object).getRectangle();
+        //map laden
+        for (int i = 2; i <= 6; i++){
+            for (MapObject object : map.getLayers().get(i).getObjects().getByType(RectangleMapObject.class)) {
+                Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX()+rect.getWidth()/2)/BounceOdysseyGame.PPM, (rect.getY()+rect.getHeight()/2)/BounceOdysseyGame.PPM);
+                bdef.type = BodyDef.BodyType.StaticBody;
+                bdef.position.set((rect.getX() + rect.getWidth() / 2) / BounceOdysseyGame.PPM, (rect.getY() + rect.getHeight() / 2) / BounceOdysseyGame.PPM);
 
-            body = world.createBody(bdef);
-            shape.setAsBox(rect.getWidth()/2/BounceOdysseyGame.PPM, rect.getHeight()/2/BounceOdysseyGame.PPM);
-            fdef.shape = shape;
+                body = world.createBody(bdef);
+                shape.setAsBox(rect.getWidth() / 2 / BounceOdysseyGame.PPM, rect.getHeight() / 2 / BounceOdysseyGame.PPM);
+                fdef.shape = shape;
 
-
-
-            body.createFixture(fdef);
+                body.createFixture(fdef);
+            }
         }
 
-        //Bouncer
-        for (MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rect = ((RectangleMapObject)object).getRectangle();
 
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX()+rect.getWidth()/2)/BounceOdysseyGame.PPM, (rect.getY()+rect.getHeight()/2)/BounceOdysseyGame.PPM);
-
-            body = world.createBody(bdef);
-            shape.setAsBox(rect.getWidth()/2/BounceOdysseyGame.PPM, rect.getHeight()/2/BounceOdysseyGame.PPM);
-            fdef.shape = shape;
-            body.createFixture(fdef);
-        }
-
-        //Pipes
-        for (MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rect = ((RectangleMapObject)object).getRectangle();
-
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX()+rect.getWidth()/2)/BounceOdysseyGame.PPM, (rect.getY()+rect.getHeight()/2)/BounceOdysseyGame.PPM);
-
-            body = world.createBody(bdef);
-            shape.setAsBox(rect.getWidth(), rect.getHeight());
-            fdef.shape = shape;
-            body.createFixture(fdef);
-        }
-
-        //coins
-        for (MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rect = ((RectangleMapObject)object).getRectangle();
-
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX()+rect.getWidth()/2)/BounceOdysseyGame.PPM, (rect.getY()+rect.getHeight()/2)/BounceOdysseyGame.PPM);
-
-            body = world.createBody(bdef);
-            shape.setAsBox(rect.getWidth()/2/BounceOdysseyGame.PPM, rect.getHeight()/2/BounceOdysseyGame.PPM);
-            fdef.shape = shape;
-            body.createFixture(fdef);
-        }
-
-        //bricks
-        for (MapObject object : map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rect = ((RectangleMapObject)object).getRectangle();
-
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX()+rect.getWidth()/2)/BounceOdysseyGame.PPM, (rect.getY()+rect.getHeight()/2)/BounceOdysseyGame.PPM);
-
-            body = world.createBody(bdef);
-            shape.setAsBox(rect.getWidth()/2/BounceOdysseyGame.PPM, rect.getHeight()/2/BounceOdysseyGame.PPM);
-            fdef.shape = shape;
-            body.createFixture(fdef);
-        }
         renderer.render();
 
     }
@@ -159,19 +107,13 @@ public class Playscreen implements Screen {
     }
     public void handleInput(float dt){
         controlSystem.updateInput();
-        if (controlSystem.isJumpbuttonPressed()){
-            player.b2body.applyLinearImpulse(new Vector2(0, 30), player.b2body.getWorldCenter(), true);
-        }
-        if (controlSystem.isrightbuttonPressed() && player.b2body.getLinearVelocity().x<=2){
-            player.b2body.applyLinearImpulse(new Vector2(75, 0), player.b2body.getWorldCenter(), true);
-        }
-        if (controlSystem.isleftbuttonPressed() && player.b2body.getLinearVelocity().x>=-2){
-            player.b2body.applyLinearImpulse(new Vector2(-75, 0), player.b2body.getWorldCenter(), true);
-        }
-
-
-
-
+       if (controlSystem.isJumpbuttonPressed){
+           player.jump();
+       }else if (controlSystem.isleftbuttonPressed){
+           player.left();
+       }else if (controlSystem.isrightbuttonPressed){
+           player.right();
+       }
 
 
     }
@@ -181,6 +123,7 @@ public class Playscreen implements Screen {
         gamecam.position.x = player.b2body.getPosition().x;
         gamecam.update();
         renderer.setView(gamecam);
+        player.setPosition(player.getX(), player.getY());
     }
 
     @Override
@@ -197,10 +140,6 @@ public class Playscreen implements Screen {
 
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
-
-
-
-
     }
 
     @Override
