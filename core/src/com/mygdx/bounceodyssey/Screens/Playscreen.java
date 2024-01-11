@@ -23,6 +23,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.bounceodyssey.BounceOdysseyGame;
 import com.mygdx.bounceodyssey.ControlSystem.ControlSystem;
 import com.mygdx.bounceodyssey.DataDisplay.DataDisplay;
+import com.mygdx.bounceodyssey.Objects.Bricks;
 import com.mygdx.bounceodyssey.Player.Player;
 import com.mygdx.bounceodyssey.mypackage.GameConstants;
 
@@ -61,13 +62,15 @@ public class Playscreen implements Screen {
 
         controlSystem = new ControlSystem(stage);
 
+        Bricks bricks = new Bricks();
+
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("Map.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1 / BounceOdysseyGame.PPM);
 
         gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
-        world = new World(new Vector2(0, -50 / BounceOdysseyGame.PPM), true);
+        world = new World(new Vector2(0, -100 / BounceOdysseyGame.PPM), true);
         b2dr = new Box2DDebugRenderer();
 
         player = new Player(world);
@@ -107,8 +110,10 @@ public class Playscreen implements Screen {
     }
     public void handleInput(float dt){
         controlSystem.updateInput();
+        player.update(dt);
        if (controlSystem.isJumpbuttonPressed){
            player.jump();
+           controlSystem.isJumpbuttonPressed=false;
        }else if (controlSystem.isleftbuttonPressed){
            player.left();
        }else if (controlSystem.isrightbuttonPressed){
@@ -167,5 +172,9 @@ public class Playscreen implements Screen {
     public void dispose() {
 
     }
+
+
+
+
 
 }

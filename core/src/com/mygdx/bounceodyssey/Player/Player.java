@@ -21,6 +21,11 @@ public class Player extends Sprite {
     public int x=32;
     public int y=32;
 
+    public int jumps=2;
+    private int counter=0;
+    public float lastdoublejump=0;
+    public float jumpcooldown=1;
+
     public Player(World world){
         this.world=world;
         definePlayer();
@@ -42,22 +47,40 @@ public class Player extends Sprite {
 
 
         b2body.createFixture(fdef);
+        b2body.setLinearDamping(5);
 
         shape.dispose();
     }
 
 
-    public void jump(){
-        b2body.applyLinearImpulse(new Vector2(0, 10), b2body.getWorldCenter(), true);
 
+    public void jump(){
+
+        if (jumps>0){
+            b2body.setLinearVelocity(new Vector2(0, 70));
+            --jumps;
+            lastdoublejump =0;
+
+        }else if (jumps<=1){
+
+            System.out.println("in");
+            if (lastdoublejump>=jumpcooldown){
+                jumps=2;
+                System.out.println("refresh");
+            }
+
+        }
 
     }
     public void left(){
         b2body.setLinearVelocity(new Vector2(-100, b2body.getLinearVelocity().y));
-
     }
     public void right(){
         b2body.setLinearVelocity(new Vector2(75, b2body.getLinearVelocity().y));
+
+    }
+    public void update(float dt){
+        lastdoublejump+=dt;
 
     }
 
