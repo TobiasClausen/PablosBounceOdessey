@@ -58,6 +58,8 @@ public class Playscreen implements Screen {
     private Viewport gamePort;
 
     private SpriteBatch spriteBatch;
+
+    private Integer round=0;
     public Playscreen(BounceOdysseyGame game) {
         this.game = game;
 
@@ -65,9 +67,6 @@ public class Playscreen implements Screen {
         gamecam = new OrthographicCamera();
         gamePort = new FitViewport(BounceOdysseyGame.V_Width / BounceOdysseyGame.PPM, BounceOdysseyGame.V_Height / BounceOdysseyGame.PPM, gamecam);
         dataDisplay = new DataDisplay(game.batch);
-
-        OrthogonalTiledMapRenderer currentMapRenderer = new OrthogonalTiledMapRenderer(map, 1 / BounceOdysseyGame.PPM);
-        OrthogonalTiledMapRenderer nextMapRenderer = new OrthogonalTiledMapRenderer(nextMap, 1 / BounceOdysseyGame.PPM);
 
         controlSystem = new ControlSystem(stage);
 
@@ -82,17 +81,8 @@ public class Playscreen implements Screen {
 
 
         loadMaps();
-        currentMapRenderer.setView(gamecam);
-        currentMapRenderer.render();
-        gamecam.translate(7680, 0); // xTranslation und yTranslation basieren auf der Größe Ihrer aktuellen Karte
-        nextMapRenderer.setView(gamecam);
-        nextMapRenderer.render();
-
-
-        gamecam.translate(-7680, 0);
-
-
         renderer.render();
+
 
     }
 
@@ -133,7 +123,7 @@ public class Playscreen implements Screen {
 
         world.step(1/60f, 6, 2);
 
-        if (player.b2body.getPosition().x>202&&player.b2body.getPosition().x<7680) {
+        if (player.b2body.getPosition().x>202&&player.b2body.getPosition().x<7480) {
             gamecam.position.x = player.b2body.getPosition().x;
         } else if (player.b2body.getPosition().x<202) {
             gamecam.position.x = 202;
@@ -155,7 +145,6 @@ public class Playscreen implements Screen {
 
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
 
         renderer.render();
 
@@ -198,13 +187,11 @@ public class Playscreen implements Screen {
         String[] Maps = {"Map1.tmx", "Map2.tmx"};
         Random rand = new Random();
         int randomNum = rand.nextInt(Maps.length);
-        System.out.println(randomNum);
 
         return Maps[randomNum];
     }
 
     public void loadMaps(){
-
 
         mapLoader = new TmxMapLoader();
         map = mapLoader.load(nextlevel());
@@ -237,20 +224,14 @@ public class Playscreen implements Screen {
     }
 
     public void TransitionMaps(){
-        // Logik zum Übergang zur nächsten Karte, z.B. Anpassung der Kamera,
-        // Verschieben von Spielerelementen usw.
+
         map = nextMap;
         renderer.setMap(map);
+        player.newmap(203, player.b2body.getPosition().y);
+        round++;
+        dataDisplay.setround(round);
 
         TmxMapLoader mapLoader = new TmxMapLoader();
         nextMap = mapLoader.load(nextlevel());
     }
-
-
-
-
-
-
-
-
 }

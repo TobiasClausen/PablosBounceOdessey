@@ -20,6 +20,8 @@ public class DataDisplay {
     private Viewport viewport;
     private Integer Timecounter;
     private Integer score;
+    private Integer round=0;
+
     Label scoreLabel;
     Label timeLabel;
 
@@ -68,10 +70,16 @@ public class DataDisplay {
     public void setScore(float score){
         this.score = (int)score;
         this.score-=52;
+        this.score-=7480*round;
     }
 
     public void setTimecounter(){
         this.Timecounter = counter.getCount();
+    }
+
+    public void setround(int round){
+        this.round=round;
+
     }
 
 }

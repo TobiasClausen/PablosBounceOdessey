@@ -28,7 +28,7 @@ public class Player extends Sprite {
     public int jumps=2;
     private int counter=0;
     public float lastdoublejump=0;
-    public float jumpcooldown=1;
+    public float jumpcooldown= 3;
 
     private SpriteSheet sprites;
     private int currentFrame = 0;
@@ -66,11 +66,11 @@ public class Player extends Sprite {
         if (jumps>0){
             b2body.setLinearVelocity(new Vector2(0, 200));
             --jumps;
-            lastdoublejump =0;
+            lastdoublejump = 0;
 
 
         }else if (jumps<=1){
-            if (lastdoublejump>=jumpcooldown){
+            if (lastdoublejump>=jumpcooldown*1){
                 jumps=2;
             }
 
@@ -78,10 +78,11 @@ public class Player extends Sprite {
 
     }
     public void left(){
-        b2body.setLinearVelocity(new Vector2(-100, b2body.getLinearVelocity().y));
+        b2body.setLinearVelocity(new Vector2(-100, b2body.getLinearVelocity().y-10));
     }
     public void right(){
-        b2body.setLinearVelocity(new Vector2(100, b2body.getLinearVelocity().y));
+
+        b2body.setLinearVelocity(new Vector2(1000, b2body.getLinearVelocity().y-10));
 
     }
     public void update(float dt){
@@ -102,6 +103,18 @@ public class Player extends Sprite {
         TextureRegion currentFrame = playerSprites.getSprite(row, col);
         return currentFrame;
     }
+
+
+    public void newmap(float x, float y){
+        this.b2body.setTransform(x, y, this.b2body.getAngle());
+
+        System.out.println("reset");
+    }
+
+
+
+
+
 
 
 
