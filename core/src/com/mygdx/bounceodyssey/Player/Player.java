@@ -1,6 +1,8 @@
 package com.mygdx.bounceodyssey.Player;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -32,6 +34,11 @@ public class Player extends Sprite {
 
     private SpriteSheet sprites;
     private int currentFrame = 0;
+
+    private SpriteBatch batch;
+    private Texture imageTexture;
+    private Sprite imageSprite;
+
 
     public Player(World world){
         this.world=world;
@@ -82,7 +89,7 @@ public class Player extends Sprite {
     }
     public void right(){
 
-        b2body.setLinearVelocity(new Vector2(1000, b2body.getLinearVelocity().y-10));
+        b2body.setLinearVelocity(new Vector2(100, b2body.getLinearVelocity().y-10));
 
     }
     public void update(float dt){
@@ -109,6 +116,30 @@ public class Player extends Sprite {
         this.b2body.setTransform(x, y, this.b2body.getAngle());
 
         System.out.println("reset");
+    }
+
+    public void createPlayer() {
+        batch = new SpriteBatch();
+
+        // Laden des Bildes
+        imageTexture = new Texture("mario.png");
+        imageSprite = new Sprite(imageTexture);
+
+        // Setzen der Position und Größe
+        imageSprite.setPosition(50, 50);
+        imageSprite.setSize(100, 100);
+    }
+
+    public void renderPlayer() {
+
+        imageSprite.draw(batch);
+
+    }
+
+    // Vergessen Sie nicht, Ressourcen freizugeben
+    public void dispose() {
+        imageTexture.dispose();
+        batch.dispose();
     }
 
 

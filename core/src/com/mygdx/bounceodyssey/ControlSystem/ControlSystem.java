@@ -85,8 +85,8 @@ public class ControlSystem {
         skin.add("default-font", defaultFont);
 
 
-        Texture upTexture = new Texture(Gdx.files.internal("buttonUpNormal.png"));
-        Texture downTexture = new Texture(Gdx.files.internal("buttonDownJump.png"));
+        Texture upTexture = new Texture(Gdx.files.internal("buttonLeftNormal.png"));
+        Texture downTexture = new Texture(Gdx.files.internal("buttonDownLeft.png"));
 
 
         TextureRegionDrawable upDrawable = new TextureRegionDrawable(upTexture);
@@ -130,8 +130,8 @@ public class ControlSystem {
         skin.add("default-font", defaultFont);
 
 
-        Texture upTexture = new Texture(Gdx.files.internal("buttonUpNormal.png"));
-        Texture downTexture = new Texture(Gdx.files.internal("buttonDownJump.png"));
+        Texture upTexture = new Texture(Gdx.files.internal("buttonRightNormal.png"));
+        Texture downTexture = new Texture(Gdx.files.internal("buttonDownRight.png"));
 
 
         TextureRegionDrawable upDrawable = new TextureRegionDrawable(upTexture);

@@ -78,6 +78,7 @@ public class Playscreen implements Screen {
         b2dr = new Box2DDebugRenderer();
 
         player = new Player(world);
+        player.createPlayer();
 
 
         loadMaps();
@@ -85,6 +86,8 @@ public class Playscreen implements Screen {
 
 
     }
+
+
 
 
     @Override
@@ -114,7 +117,7 @@ public class Playscreen implements Screen {
 
         handleInput(dt);
 
-        if (player.b2body.getPosition().x>7480) {
+        if (player.b2body.getPosition().x>7480||player.b2body.getPosition().x<=1) {
             TransitionMaps();
         }
 
@@ -133,6 +136,7 @@ public class Playscreen implements Screen {
 
 
         gamecam.update();
+
         renderer.setView(gamecam);
 
         player.setPosition(player.getX(), player.getY());
