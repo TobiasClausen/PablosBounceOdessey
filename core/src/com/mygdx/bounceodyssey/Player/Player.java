@@ -1,6 +1,7 @@
 package com.mygdx.bounceodyssey.Player;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -10,21 +11,27 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.bounceodyssey.BounceOdysseyGame;
 import com.mygdx.bounceodyssey.ControlSystem.ControlSystem;
+import com.mygdx.bounceodyssey.Graphics.SpriteSheet;
 import com.mygdx.bounceodyssey.mypackage.GameConstants;
 
 public class Player extends Sprite {
 
     ControlSystem controlSystem = new ControlSystem(new Stage());
+
+    SpriteSheet playerSprites = new SpriteSheet("spritesheet.png", 1, 13);
     public World world;
     public Body b2body;
 
-    public int x=32;
+    public int x=52;
     public int y=32;
 
     public int jumps=2;
     private int counter=0;
     public float lastdoublejump=0;
     public float jumpcooldown=1;
+
+    private SpriteSheet sprites;
+    private int currentFrame = 0;
 
     public Player(World world){
         this.world=world;
@@ -57,16 +64,14 @@ public class Player extends Sprite {
     public void jump(){
 
         if (jumps>0){
-            b2body.setLinearVelocity(new Vector2(0, 70));
+            b2body.setLinearVelocity(new Vector2(0, 200));
             --jumps;
             lastdoublejump =0;
 
-        }else if (jumps<=1){
 
-            System.out.println("in");
+        }else if (jumps<=1){
             if (lastdoublejump>=jumpcooldown){
                 jumps=2;
-                System.out.println("refresh");
             }
 
         }
@@ -76,13 +81,30 @@ public class Player extends Sprite {
         b2body.setLinearVelocity(new Vector2(-100, b2body.getLinearVelocity().y));
     }
     public void right(){
-        b2body.setLinearVelocity(new Vector2(75, b2body.getLinearVelocity().y));
+        b2body.setLinearVelocity(new Vector2(100, b2body.getLinearVelocity().y));
 
     }
     public void update(float dt){
         lastdoublejump+=dt;
-
     }
+
+    public float getXCoordinate() {
+        return b2body.getPosition().x;
+    }
+
+    public void setXCoordinate(int x){
+        b2body.getPosition().x = x;
+    }
+    public void setyCoordinate(int y){
+        b2body.getPosition().y = y;
+    }
+    public TextureRegion loadPlayer(int row, int col){
+        TextureRegion currentFrame = playerSprites.getSprite(row, col);
+        return currentFrame;
+    }
+
+
+
 
 
 

@@ -1,7 +1,6 @@
 package com.mygdx.bounceodyssey;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.bounceodyssey.Screens.Playscreen;
@@ -24,8 +23,6 @@ public class BounceOdysseyGame extends Game {
 		batch = new SpriteBatch();
 		setScreen(new Playscreen(this));
 
-
-		PlayerImage = new Texture(Gdx.files.internal("mario.png"));
 
 
 	}

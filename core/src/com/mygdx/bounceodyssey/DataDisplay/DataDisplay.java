@@ -10,13 +10,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.bounceodyssey.BounceOdysseyGame;
+import com.mygdx.bounceodyssey.Counter.Counter;
 
 
 public class DataDisplay {
+
+    Counter counter = new Counter();
     public Stage stage;
     private Viewport viewport;
-    private Integer Worldtimer;
-    private float timeCounter;
+    private Integer Timecounter;
     private Integer score;
     Label scoreLabel;
     Label timeLabel;
@@ -24,9 +26,10 @@ public class DataDisplay {
     Label PlayerLabel;
 
     public DataDisplay(SpriteBatch sb){
-        Worldtimer=300;
-        timeCounter = 0;
+
+
         score = 0;
+        Timecounter=0;
 
         viewport = new FitViewport(BounceOdysseyGame.V_Width, BounceOdysseyGame.V_Height, new OrthographicCamera());
         stage = new Stage(viewport, sb);
@@ -39,7 +42,7 @@ public class DataDisplay {
 
         scoreLabel = new Label(String.format("%06d", score), labelStyle);
 
-        timeLabel = new Label(String.format("%06d", score), labelStyle);
+        timeLabel = new Label(String.format("%06d", Timecounter), labelStyle);
 
         PlayerLabel = new Label("Pablo", labelStyle);
 
@@ -52,6 +55,23 @@ public class DataDisplay {
 
 
 
+    }
+
+    public void update(){
+        setTimecounter();
+        scoreLabel.setText(String.format("%06d", score));
+        timeLabel.setText(String.format("%06d", Timecounter));
+
+
+    }
+
+    public void setScore(float score){
+        this.score = (int)score;
+        this.score-=52;
+    }
+
+    public void setTimecounter(){
+        this.Timecounter = counter.getCount();
     }
 
 }

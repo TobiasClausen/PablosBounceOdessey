@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -27,6 +28,7 @@ import com.mygdx.bounceodyssey.Objects.Bricks;
 import com.mygdx.bounceodyssey.Player.Player;
 import com.mygdx.bounceodyssey.mypackage.GameConstants;
 
+import java.util.Random;
 
 
 public class Playscreen implements Screen {
@@ -43,6 +45,8 @@ public class Playscreen implements Screen {
     private TmxMapLoader mapLoader;
     private TiledMap map;
 
+    private TiledMap nextMap;
+
     private OrthogonalTiledMapRenderer renderer;
     private DataDisplay dataDisplay;
     private ControlSystem controlSystem;
@@ -52,21 +56,22 @@ public class Playscreen implements Screen {
     private BounceOdysseyGame game;
     private OrthographicCamera gamecam;
     private Viewport gamePort;
+
+    private SpriteBatch spriteBatch;
     public Playscreen(BounceOdysseyGame game) {
         this.game = game;
 
-
+        spriteBatch = new SpriteBatch();
         gamecam = new OrthographicCamera();
         gamePort = new FitViewport(BounceOdysseyGame.V_Width / BounceOdysseyGame.PPM, BounceOdysseyGame.V_Height / BounceOdysseyGame.PPM, gamecam);
         dataDisplay = new DataDisplay(game.batch);
 
+        OrthogonalTiledMapRenderer currentMapRenderer = new OrthogonalTiledMapRenderer(map, 1 / BounceOdysseyGame.PPM);
+        OrthogonalTiledMapRenderer nextMapRenderer = new OrthogonalTiledMapRenderer(nextMap, 1 / BounceOdysseyGame.PPM);
+
         controlSystem = new ControlSystem(stage);
 
         Bricks bricks = new Bricks();
-
-        mapLoader = new TmxMapLoader();
-        map = mapLoader.load("Map.tmx");
-        renderer = new OrthogonalTiledMapRenderer(map, 1 / BounceOdysseyGame.PPM);
 
         gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
@@ -75,27 +80,16 @@ public class Playscreen implements Screen {
 
         player = new Player(world);
 
-        BodyDef bdef = new BodyDef();
-        PolygonShape shape = new PolygonShape();
-        FixtureDef fdef = new FixtureDef();
-        Body body;
+
+        loadMaps();
+        currentMapRenderer.setView(gamecam);
+        currentMapRenderer.render();
+        gamecam.translate(7680, 0); // xTranslation und yTranslation basieren auf der Größe Ihrer aktuellen Karte
+        nextMapRenderer.setView(gamecam);
+        nextMapRenderer.render();
 
 
-        //map laden
-        for (int i = 2; i <= 6; i++){
-            for (MapObject object : map.getLayers().get(i).getObjects().getByType(RectangleMapObject.class)) {
-                Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
-                bdef.type = BodyDef.BodyType.StaticBody;
-                bdef.position.set((rect.getX() + rect.getWidth() / 2) / BounceOdysseyGame.PPM, (rect.getY() + rect.getHeight() / 2) / BounceOdysseyGame.PPM);
-
-                body = world.createBody(bdef);
-                shape.setAsBox(rect.getWidth() / 2 / BounceOdysseyGame.PPM, rect.getHeight() / 2 / BounceOdysseyGame.PPM);
-                fdef.shape = shape;
-
-                body.createFixture(fdef);
-            }
-        }
+        gamecam.translate(-7680, 0);
 
 
         renderer.render();
@@ -122,20 +116,47 @@ public class Playscreen implements Screen {
 
 
     }
+
+
+    float second;
     public void update(float dt){
+
+
         handleInput(dt);
+
+        if (player.b2body.getPosition().x>7480) {
+            TransitionMaps();
+        }
+
+        dataDisplay.setScore(player.getXCoordinate());
+        dataDisplay.update();
+
         world.step(1/60f, 6, 2);
-        gamecam.position.x = player.b2body.getPosition().x;
+
+        if (player.b2body.getPosition().x>202&&player.b2body.getPosition().x<7680) {
+            gamecam.position.x = player.b2body.getPosition().x;
+        } else if (player.b2body.getPosition().x<202) {
+            gamecam.position.x = 202;
+        }else if (player.b2body.getPosition().x>7480){
+            gamecam.position.x = 7480;
+        }
+
+
         gamecam.update();
         renderer.setView(gamecam);
+
         player.setPosition(player.getX(), player.getY());
     }
 
     @Override
     public void render(float delta) {
         update(delta);
+        player.update(delta);
+
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+
         renderer.render();
 
         b2dr.render(world, gamecam.combined);
@@ -172,6 +193,61 @@ public class Playscreen implements Screen {
     public void dispose() {
 
     }
+
+    public String nextlevel(){
+        String[] Maps = {"Map1.tmx", "Map2.tmx"};
+        Random rand = new Random();
+        int randomNum = rand.nextInt(Maps.length);
+        System.out.println(randomNum);
+
+        return Maps[randomNum];
+    }
+
+    public void loadMaps(){
+
+
+        mapLoader = new TmxMapLoader();
+        map = mapLoader.load(nextlevel());
+        renderer = new OrthogonalTiledMapRenderer(map, 1 / BounceOdysseyGame.PPM);
+
+        nextMap = mapLoader.load(nextlevel());
+
+        BodyDef bdef = new BodyDef();
+        PolygonShape shape = new PolygonShape();
+        FixtureDef fdef = new FixtureDef();
+        Body body;
+
+
+        //map laden
+        for (int i = 2; i <= 7; i++){
+            for (MapObject object : map.getLayers().get(i).getObjects().getByType(RectangleMapObject.class)) {
+                Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
+                bdef.type = BodyDef.BodyType.StaticBody;
+                bdef.position.set((rect.getX() + rect.getWidth() / 2) / BounceOdysseyGame.PPM, (rect.getY() + rect.getHeight() / 2) / BounceOdysseyGame.PPM);
+
+                body = world.createBody(bdef);
+                shape.setAsBox(rect.getWidth() / 2 / BounceOdysseyGame.PPM, rect.getHeight() / 2 / BounceOdysseyGame.PPM);
+                fdef.shape = shape;
+
+                body.createFixture(fdef);
+            }
+        }
+
+    }
+
+    public void TransitionMaps(){
+        // Logik zum Übergang zur nächsten Karte, z.B. Anpassung der Kamera,
+        // Verschieben von Spielerelementen usw.
+        map = nextMap;
+        renderer.setMap(map);
+
+        TmxMapLoader mapLoader = new TmxMapLoader();
+        nextMap = mapLoader.load(nextlevel());
+    }
+
+
+
 
 
 
