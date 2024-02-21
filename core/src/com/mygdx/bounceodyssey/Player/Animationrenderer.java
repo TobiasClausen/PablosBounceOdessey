@@ -10,6 +10,7 @@ public class Animationrenderer {
     private TextureRegion currentFrame;
     int colums = 16;
     int rows = 14;
+
     private Texture spriteSheet;
     private Animation<TextureRegion> walkRightAnimation;
     private Animation<TextureRegion> walkLeftAnimation;

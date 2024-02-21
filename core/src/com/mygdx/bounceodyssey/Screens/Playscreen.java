@@ -57,6 +57,8 @@ public class Playscreen implements Screen {
 
     private SpriteBatch spriteBatch;
 
+    public int PlayerX=300;
+
     private Integer round=0;
     public Playscreen(BounceOdysseyGame game) {
         this.game = game;
@@ -100,8 +102,20 @@ public class Playscreen implements Screen {
            controlSystem.isJumpbuttonPressed=false;
        }else if (controlSystem.isleftbuttonPressed){
            player.left();
+           if (player.b2body.getPosition().x<202){
+               PlayerX = PlayerX -30;
+           }
+
        }else if (controlSystem.isrightbuttonPressed){
            player.right();
+           if (player.b2body.getPosition().x<2){
+               PlayerX = 1400;
+           }
+           else if (player.b2body.getPosition().x<202){
+               PlayerX = PlayerX + 30;
+           }else if (player.b2body.getPosition().x>202){
+               PlayerX = 1400;
+           }
        }
 
 
@@ -160,7 +174,7 @@ public class Playscreen implements Screen {
         TextureRegion textureRegion = player.getTextureRegion();
 
         spriteBatch.begin();
-        spriteBatch.draw(textureRegion, 1400, (player.b2body.getPosition().y)*8-110);
+        spriteBatch.draw(textureRegion, PlayerX, (player.b2body.getPosition().y)*8-110);
         spriteBatch.end();
     }
 
@@ -235,11 +249,12 @@ public class Playscreen implements Screen {
 
         map = nextMap;
         renderer.setMap(map);
-        player.newmap(203, player.b2body.getPosition().y);
+        player.newmap(250, player.b2body.getPosition().y);
         round++;
         dataDisplay.setround(round);
 
         TmxMapLoader mapLoader = new TmxMapLoader();
         nextMap = mapLoader.load(nextlevel());
     }
+
 }

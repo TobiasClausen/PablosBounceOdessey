@@ -14,7 +14,6 @@
  <objectgroup id="10" name="Newmap"/>
  <objectgroup id="11" name="Deathzone">
   <object id="94" x="490.449" y="185.95"/>
-  <object id="95" x="509.897" y="185.95"/>
  </objectgroup>
  <objectgroup color="#000000" id="3" name="ground" tintcolor="#0000ff00">
   <object id="67" x="-0.376657" y="192.301" width="7679.55" height="16"/>

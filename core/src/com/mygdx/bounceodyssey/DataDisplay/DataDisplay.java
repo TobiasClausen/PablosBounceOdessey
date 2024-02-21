@@ -70,7 +70,12 @@ public class DataDisplay {
     public void setScore(float score){
         this.score = (int)score;
         this.score-=52;
-        this.score-=7480*round;
+        if (this.score-7480*round>0){
+            this.score-=7480*round;
+        }else {
+            this.score=0;
+        }
+
     }
 
     public void setTimecounter(){
