@@ -1,6 +1,5 @@
 package com.mygdx.bounceodyssey.Player;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -36,8 +35,8 @@ public class Player extends Sprite {
     private int currentFrame = 0;
 
     private SpriteBatch batch;
-    private Texture imageTexture;
-    private Sprite imageSprite;
+
+    boolean DirectionRight = true;
 
 
     public Player(World world){
@@ -58,8 +57,6 @@ public class Player extends Sprite {
         fdef.shape = shape;
 
 
-
-
         b2body.createFixture(fdef);
         b2body.setLinearDamping(5);
 
@@ -75,7 +72,12 @@ public class Player extends Sprite {
             --jumps;
             lastdoublejump = 0;
 
-            animationrenderer.renderAnimationjump(batch, getXCoordinate(),b2body.getPosition().y);
+            if(DirectionRight){
+                animationrenderer.renderAnimationJumpRight();
+            }else{
+                animationrenderer.renderAnimationJumpLeft();
+            }
+
 
         }else if (jumps<=1){
             if (lastdoublejump>=jumpcooldown*1.5){
@@ -86,15 +88,16 @@ public class Player extends Sprite {
 
     }
     public void left(){
+        DirectionRight = false;
         b2body.setLinearVelocity(new Vector2(-100, b2body.getLinearVelocity().y-10));
 
-        animationrenderer.renderAnimationleft(batch, getXCoordinate(), b2body.getPosition().y);
+        animationrenderer.renderAnimationWalkLeft();
     }
     public void right(){
-
+        DirectionRight = true;
         b2body.setLinearVelocity(new Vector2(100, b2body.getLinearVelocity().y-10));
 
-        animationrenderer.renderAnimationright(batch, getXCoordinate(),b2body.getPosition().y);
+        animationrenderer.renderAnimationWalkRight();
 
     }
     public void update(float dt){
@@ -102,8 +105,13 @@ public class Player extends Sprite {
         animationrenderer.update(dt);
 
         if (b2body.getLinearVelocity().isZero()){
-            animationrenderer.renderstand(batch, b2body.getPosition().x,b2body.getPosition().y);
+            if(DirectionRight){
+                animationrenderer.renderStandRight();
+            }else{
+                animationrenderer.renderStandLeft();
+            }
         }
+
     }
 
     public float getXCoordinate() {
@@ -126,7 +134,7 @@ public class Player extends Sprite {
         this.b2body.setTransform(x, y, this.b2body.getAngle());
     }
 
-    public void setPlayerbatch(SpriteBatch batch) {
+    public void getPlayerbatch(SpriteBatch batch) {
         this.batch = batch;
     }
 
@@ -134,6 +142,8 @@ public class Player extends Sprite {
         TextureRegion textureRegion = animationrenderer.getTextureRegion();
         return textureRegion;
     }
+
+
 
 
 

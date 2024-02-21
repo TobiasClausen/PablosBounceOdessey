@@ -76,7 +76,7 @@ public class Playscreen implements Screen {
         b2dr = new Box2DDebugRenderer();
 
         player = new Player(world);
-        player.setPlayerbatch(spriteBatch);
+        player.getPlayerbatch(spriteBatch);
 
 
         loadMaps();
@@ -160,7 +160,7 @@ public class Playscreen implements Screen {
         TextureRegion textureRegion = player.getTextureRegion();
 
         spriteBatch.begin();
-        spriteBatch.draw(textureRegion, player.getXCoordinate(), player.getYCoordinate());
+        spriteBatch.draw(textureRegion, 1400, (player.b2body.getPosition().y)*8-110);
         spriteBatch.end();
     }
 
