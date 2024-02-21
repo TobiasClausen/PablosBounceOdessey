@@ -21,18 +21,12 @@ public class BounceOdysseyGame extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-
 		setScreen(new Playscreen(this));
-
-
-
 	}
 
 	@Override
 	public void render () {
 		super.render();
-
-
 	}
 	
 	@Override

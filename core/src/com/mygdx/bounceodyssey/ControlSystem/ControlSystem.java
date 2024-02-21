@@ -31,13 +31,12 @@ public class ControlSystem {
 
     public ControlSystem(Stage stage) {
         this.stage = stage;
-        jumpbutton();
-        leftbutton();
-        rightbutton();
-
+        createjumpbutton();
+        createleftbutton();
+        createrightbutton();
     }
 
-    public void jumpbutton(){
+    public void createjumpbutton(){
         this.skin = new Skin();
 
 
@@ -77,7 +76,7 @@ public class ControlSystem {
     }
 
 
-    public void leftbutton(){
+    public void createleftbutton(){
         this.skin = new Skin();
 
 
@@ -122,7 +121,7 @@ public class ControlSystem {
 
 
 
-    public void rightbutton(){
+    public void createrightbutton(){
         this.skin = new Skin();
 
 

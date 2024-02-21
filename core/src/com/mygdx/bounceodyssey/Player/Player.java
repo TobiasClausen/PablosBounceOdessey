@@ -19,8 +19,8 @@ import com.mygdx.bounceodyssey.mypackage.GameConstants;
 public class Player extends Sprite {
 
     ControlSystem controlSystem = new ControlSystem(new Stage());
+    Animationrenderer animationrenderer = new Animationrenderer();
 
-    SpriteSheet playerSprites = new SpriteSheet("spritesheet.png", 1, 13);
     public World world;
     public Body b2body;
 
@@ -75,9 +75,10 @@ public class Player extends Sprite {
             --jumps;
             lastdoublejump = 0;
 
+            animationrenderer.renderAnimationjump(batch, getXCoordinate(),b2body.getPosition().y);
 
         }else if (jumps<=1){
-            if (lastdoublejump>=jumpcooldown*1){
+            if (lastdoublejump>=jumpcooldown*1.5){
                 jumps=2;
             }
 
@@ -86,18 +87,30 @@ public class Player extends Sprite {
     }
     public void left(){
         b2body.setLinearVelocity(new Vector2(-100, b2body.getLinearVelocity().y-10));
+
+        animationrenderer.renderAnimationleft(batch, getXCoordinate(), b2body.getPosition().y);
     }
     public void right(){
 
         b2body.setLinearVelocity(new Vector2(100, b2body.getLinearVelocity().y-10));
 
+        animationrenderer.renderAnimationright(batch, getXCoordinate(),b2body.getPosition().y);
+
     }
     public void update(float dt){
         lastdoublejump+=dt;
+        animationrenderer.update(dt);
+
+        if (b2body.getLinearVelocity().isZero()){
+            animationrenderer.renderstand(batch, b2body.getPosition().x,b2body.getPosition().y);
+        }
     }
 
     public float getXCoordinate() {
         return b2body.getPosition().x;
+    }
+    public float getYCoordinate() {
+        return b2body.getPosition().y;
     }
 
     public void setXCoordinate(int x){
@@ -106,41 +119,23 @@ public class Player extends Sprite {
     public void setyCoordinate(int y){
         b2body.getPosition().y = y;
     }
-    public TextureRegion loadPlayer(int row, int col){
-        TextureRegion currentFrame = playerSprites.getSprite(row, col);
-        return currentFrame;
-    }
+
 
 
     public void newmap(float x, float y){
         this.b2body.setTransform(x, y, this.b2body.getAngle());
-
-        System.out.println("reset");
     }
 
-    public void createPlayer() {
-        batch = new SpriteBatch();
-
-        // Laden des Bildes
-        imageTexture = new Texture("mario.png");
-        imageSprite = new Sprite(imageTexture);
-
-        // Setzen der Position und Größe
-        imageSprite.setPosition(50, 50);
-        imageSprite.setSize(100, 100);
+    public void setPlayerbatch(SpriteBatch batch) {
+        this.batch = batch;
     }
 
-    public void renderPlayer() {
-
-        imageSprite.draw(batch);
-
+    public TextureRegion getTextureRegion(){
+        TextureRegion textureRegion = animationrenderer.getTextureRegion();
+        return textureRegion;
     }
 
-    // Vergessen Sie nicht, Ressourcen freizugeben
-    public void dispose() {
-        imageTexture.dispose();
-        batch.dispose();
-    }
+
 
 
 

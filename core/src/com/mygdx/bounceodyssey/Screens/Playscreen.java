@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -33,12 +34,9 @@ import java.util.Random;
 
 public class Playscreen implements Screen {
 
-    Stage stage =new Stage();
+    Stage stage = new Stage();
 
     GameConstants gc = new GameConstants();
-
-
-
 
     private World world;
     private Box2DDebugRenderer b2dr;
@@ -78,13 +76,11 @@ public class Playscreen implements Screen {
         b2dr = new Box2DDebugRenderer();
 
         player = new Player(world);
-        player.createPlayer();
+        player.setPlayerbatch(spriteBatch);
 
 
         loadMaps();
         renderer.render();
-
-
     }
 
 
@@ -93,6 +89,7 @@ public class Playscreen implements Screen {
     @Override
     public void show(){
         Gdx.input.setInputProcessor(stage);
+
 
     }
     public void handleInput(float dt){
@@ -159,6 +156,12 @@ public class Playscreen implements Screen {
 
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
+
+        TextureRegion textureRegion = player.getTextureRegion();
+
+        spriteBatch.begin();
+        spriteBatch.draw(textureRegion, player.getXCoordinate(), player.getYCoordinate());
+        spriteBatch.end();
     }
 
     @Override
@@ -189,6 +192,7 @@ public class Playscreen implements Screen {
 
     public String nextlevel(){
         String[] Maps = {"Map1.tmx", "Map2.tmx"};
+
         Random rand = new Random();
         int randomNum = rand.nextInt(Maps.length);
 
