@@ -13,17 +13,17 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.bounceodyssey.BounceOdysseyGame;
 import com.mygdx.bounceodyssey.ControlSystem.ControlSystem;
 import com.mygdx.bounceodyssey.Graphics.SpriteSheet;
-import com.mygdx.bounceodyssey.mypackage.GameConstants;
+import com.mygdx.bounceodyssey.Variables.GameConstants;
 
 public class Player extends Sprite {
 
     ControlSystem controlSystem = new ControlSystem(new Stage());
-    Animationrenderer animationrenderer = new Animationrenderer();
 
+    Animationrenderer animationrenderer;
     public World world;
     public Body b2body;
 
-    public int x=52;
+    public int x=400;
     public int y=32;
 
     public int jumps=2;
@@ -42,6 +42,7 @@ public class Player extends Sprite {
     public Player(World world){
         this.world=world;
         definePlayer();
+         animationrenderer = new Animationrenderer(world);
 
     }
     public void definePlayer(){
@@ -72,7 +73,10 @@ public class Player extends Sprite {
             --jumps;
             lastdoublejump = 0;
 
-            if(DirectionRight){
+            if (GameConstants.ALIVE==false){
+                animationrenderer.renderAnimationdead();
+            }
+            else if(DirectionRight){
                 animationrenderer.renderAnimationJumpRight();
             }else{
                 animationrenderer.renderAnimationJumpLeft();
@@ -90,27 +94,38 @@ public class Player extends Sprite {
     public void left(){
         DirectionRight = false;
         b2body.setLinearVelocity(new Vector2(-100, b2body.getLinearVelocity().y-10));
+        if (GameConstants.ALIVE==false){
+            animationrenderer.renderAnimationdead();
+        }else {
+            animationrenderer.renderAnimationWalkLeft();
+        }
 
-        animationrenderer.renderAnimationWalkLeft();
     }
     public void right(){
         DirectionRight = true;
         b2body.setLinearVelocity(new Vector2(100, b2body.getLinearVelocity().y-10));
+        if (GameConstants.ALIVE==false){
+            animationrenderer.renderAnimationdead();
+        }else {
+            animationrenderer.renderAnimationWalkRight();
+        }
 
-        animationrenderer.renderAnimationWalkRight();
 
     }
     public void update(float dt){
         lastdoublejump+=dt;
         animationrenderer.update(dt);
 
-        if (b2body.getLinearVelocity().isZero()){
+        if (GameConstants.ALIVE==false){
+            animationrenderer.renderAnimationdead();
+        }else if (b2body.getLinearVelocity().isZero()){
             if(DirectionRight){
                 animationrenderer.renderStandRight();
             }else{
                 animationrenderer.renderStandLeft();
             }
         }
+
 
     }
 

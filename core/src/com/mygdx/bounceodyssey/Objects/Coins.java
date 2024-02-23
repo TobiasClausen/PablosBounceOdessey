@@ -7,18 +7,17 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.mygdx.bounceodyssey.BounceOdysseyGame;
 import com.mygdx.bounceodyssey.Variables.Mapvariable;
 
-public class Newmap {
-
+public class Coins {
     Mapvariable mapvariable;
 
-    public Newmap(Mapvariable mapvariable) {
+    public Coins(Mapvariable mapvariable) {
         this.mapvariable = mapvariable;
     }
 
 
-    public void createNewmap(){
+    public void createCoins(){
         if (mapvariable.getMap() !=null){
-            for (MapObject object : mapvariable.getMap().getLayers().get(2).getObjects().getByType(RectangleMapObject.class)) {
+            for (MapObject object : mapvariable.getMap().getLayers().get(6).getObjects().getByType(RectangleMapObject.class)) {
                 Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
                 mapvariable.getBdef().type = BodyDef.BodyType.StaticBody;
@@ -32,5 +31,4 @@ public class Newmap {
             }
         }
     }
-
 }

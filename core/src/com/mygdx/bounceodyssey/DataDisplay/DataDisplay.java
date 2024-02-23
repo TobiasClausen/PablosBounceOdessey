@@ -12,6 +12,9 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.bounceodyssey.BounceOdysseyGame;
 import com.mygdx.bounceodyssey.Counter.Counter;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 
 public class DataDisplay {
 
@@ -26,12 +29,13 @@ public class DataDisplay {
     Label timeLabel;
 
     Label PlayerLabel;
+    int outpuscore=0;
 
     public DataDisplay(SpriteBatch sb){
 
 
-        score = 0;
-        Timecounter=0;
+        score = 1;
+        Timecounter=1;
 
         viewport = new FitViewport(BounceOdysseyGame.V_Width, BounceOdysseyGame.V_Height, new OrthographicCamera());
         stage = new Stage(viewport, sb);
@@ -61,7 +65,11 @@ public class DataDisplay {
 
     public void update(){
         setTimecounter();
-        scoreLabel.setText(String.format("%06d", score));
+
+        if (score-Timecounter>0){
+            outpuscore=score-Timecounter;
+        }
+        scoreLabel.setText(String.format("%06d", outpuscore));
         timeLabel.setText(String.format("%06d", Timecounter));
 
 
@@ -73,7 +81,7 @@ public class DataDisplay {
         if (this.score-7480*round>0){
             this.score-=7480*round;
         }else {
-            this.score=0;
+            this.score=1;
         }
 
     }
@@ -85,6 +93,17 @@ public class DataDisplay {
     public void setround(int round){
         this.round=round;
 
+    }
+    public static void savescore(){
+        try {
+            FileWriter writer = new FileWriter("score.txt", false);
+
+            writer.write("last score: ");
+
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

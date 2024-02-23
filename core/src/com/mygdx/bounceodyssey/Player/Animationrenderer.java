@@ -3,6 +3,8 @@ package com.mygdx.bounceodyssey.Player;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.bounceodyssey.Variables.GameConstants;
 
 import java.util.Arrays;
 
@@ -11,6 +13,8 @@ public class Animationrenderer {
     int colums = 16;
     int rows = 14;
 
+    World world;
+
     private Texture spriteSheet;
     private Animation<TextureRegion> walkRightAnimation;
     private Animation<TextureRegion> walkLeftAnimation;
@@ -18,9 +22,11 @@ public class Animationrenderer {
     private Animation<TextureRegion> jumpLeftAnimation;
     private Animation<TextureRegion> standLeftAnimation;
     private Animation<TextureRegion> jumpRightAnimation;
+    private Animation<TextureRegion> dead;
     private float elapsedTime = 0;
-    public Animationrenderer(){
-        spriteSheet = new Texture("spritesheet.png");
+    public Animationrenderer(World world){
+        this.world=world;
+        spriteSheet = new Texture(GameConstants.skin);
         TextureRegion[][] tmpFrames = TextureRegion.split(spriteSheet, spriteSheet.getWidth()/colums+7, spriteSheet.getHeight()/rows);
 
         //Rechts Stehen
@@ -42,6 +48,10 @@ public class Animationrenderer {
         //Links Springen
         TextureRegion[] jumpLeftFrames = Arrays.copyOfRange(tmpFrames[11], 0, 15);
         jumpLeftAnimation = new Animation<>(0.1F, jumpLeftFrames);
+
+        //dead
+        TextureRegion[] deadFrames = Arrays.copyOfRange(tmpFrames[3], 14, 15);
+        dead = new Animation<>(0.1F, deadFrames);
     }
 
     public void renderStandRight(){
@@ -62,6 +72,9 @@ public class Animationrenderer {
     }
     public void renderAnimationJumpLeft(){
         currentFrame = jumpLeftAnimation.getKeyFrame(elapsedTime, true);
+    }
+    public void renderAnimationdead(){
+        currentFrame = dead.getKeyFrame(elapsedTime, true);
     }
 
 

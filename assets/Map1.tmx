@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="480" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="110">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="480" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="116">
  <tileset firstgid="1" source="Bausteine.tsx"/>
  <layer id="1" name="Background" width="480" height="13">
   <data encoding="base64" compression="zlib">
@@ -8,7 +8,7 @@
  </layer>
  <layer id="2" name="Graphics" width="480" height="13">
   <data encoding="base64" compression="zlib">
-   eJzt18sJwkAYhdE/EXx04CrdqH2ozftALcFZyiAawzgSPAe+RcAks7smAgAAAAAAAADqWLUR69Sm/fVJAGC82of62KYf7lL7njd0A88FAAzThf0FgJq6eL+/k4eW2TUA8Jku+u0vAFBGvr019/eQOlZ8HwAMVXIf8909p04Fn53L93baRMyaQi/8Iv8TAP5bye/TZ9+9i7SF8xd7eEldU7eez87lezuW/R3LOQH+RSNJkqp3B7gQEgg=
+   eJzt1k1uwjAURtGXIEHZQUfZDWUfLetm3oKAJdQVqmR5UELkGkWcI90Bf45nHxEAAAAAAAAA0Mamj3hLbftH3wQA5qvPGuM9ffEjtRv5g2HivQCAaYawvwDQ0hC393eR9Vq8BgDuM8S4/QUA6ii3t+X+fqa+Gj4PAKaquY/l7h5Th4pnl/K9/fl82UWsukoP/Ef+JwA8t9+d3PfXapyVt05b+PLHHp5S59Rl5Nnle/nezml/53JPgGfRSZKk5n0D3iUUIg==
   </data>
  </layer>
  <objectgroup id="10" name="Newmap"/>
@@ -52,5 +52,8 @@
   <object id="81" x="1023.59" y="111.124" width="48" height="16"/>
   <object id="82" x="1136.11" y="159.872" width="16" height="16"/>
   <object id="83" x="832.399" y="95.6286" width="32" height="16"/>
+  <object id="113" x="1199.63" y="175.969" width="16" height="16"/>
+  <object id="114" x="1262.88" y="159.069" width="16" height="16"/>
+  <object id="115" x="1260.95" y="175.969" width="16" height="16"/>
  </objectgroup>
 </map>
