@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="480" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="109">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="480" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="112">
  <tileset firstgid="1" source="Bausteine.tsx"/>
  <layer id="1" name="Background" width="480" height="13">
   <data encoding="base64" compression="zlib">
@@ -8,12 +8,13 @@
  </layer>
  <layer id="2" name="Graphics" width="480" height="13">
   <data encoding="base64" compression="zlib">
-   eJzt2UuKwkAYhdGKgo8dOMputPfR9rp77gN1Cf6NNIQiatQyIDkHvoERksyuhSkBAAAAAAAAQDm/o0ttlnF9FX1d+R4AuG/U6E9zd9s2+DuuraOfjvtbv/h+ADAk186/j6iT/QWArkpu7639HTdaZJ8BYEj+//tt9qg6ddtfAKCMfHv73N9NtO3xeQDwrJL7mO/uPtoVvHcu39tJldK0KvTAN/I7AWDYSp5P286989jC2Y09PETH6NTx3rl8bz9lfz/lPQGGopIkSb13BhpmG6g=
+   eJzt2UFqwkAYhuFJCtreoKvcxtpz1Hbbe9uK9Qj+JQhhiDbW0SB5HngXRkiy+xxMCQAAAAAAAADK+azb+izi+ku0PPI9APC3utOv7u72bfBbXFtF7wP3t7nw/QBgSo6df8/RJPsLAEOV3N5T+/vQ6Tn7DABTcvjvt9u5mjRsfwGAMvLtveX+rqOvGz4PAP6r5D7mu7uJvgveO5fv7axKaV4VeuAV+Z0AMG2HnXyt2y45r/ade59iCx9P7OE2+ol2A++dy/f2Xvb3Xt4TYCqqkfqo28Z6viRJY7YHze8YdA==
   </data>
  </layer>
  <objectgroup id="10" name="Newmap"/>
  <objectgroup id="11" name="Deathzone">
   <object id="94" x="490.449" y="185.95"/>
+  <object id="109" x="495.274" y="176.44" width="16" height="16"/>
  </objectgroup>
  <objectgroup color="#000000" id="3" name="ground" tintcolor="#0000ff00">
   <object id="67" x="-0.376657" y="192.301" width="7679.55" height="16"/>
@@ -38,7 +39,7 @@
    <property name="Collision" type="bool" value="true"/>
   </properties>
   <object id="69" x="464.372" y="80.4556" width="48" height="16"/>
-  <object id="71" x="464.443" y="159.872" width="16" height="16"/>
+  <object id="71" x="511.848" y="176.135" width="16" height="16"/>
   <object id="72" x="448.23" y="176.013" width="32" height="16"/>
   <object id="73" x="751.298" y="175.045" width="80" height="16"/>
   <object id="74" x="767.399" y="159.872" width="64" height="16"/>
@@ -51,5 +52,7 @@
   <object id="81" x="1023.59" y="111.124" width="48" height="16"/>
   <object id="82" x="1136.11" y="159.872" width="16" height="16"/>
   <object id="83" x="832.399" y="95.6286" width="32" height="16"/>
+  <object id="110" x="463.972" y="160.166" width="16" height="16"/>
+  <object id="111" x="528.332" y="176.429" width="16" height="16"/>
  </objectgroup>
 </map>

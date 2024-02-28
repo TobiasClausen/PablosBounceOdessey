@@ -20,7 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.bounceodyssey.BounceOdysseyGame;
-import com.mygdx.bounceodyssey.ControlSystem.ControlSystem;
+import com.mygdx.bounceodyssey.ControlSystem.ControlSystemPlayer;
 import com.mygdx.bounceodyssey.DataDisplay.DataDisplay;
 import com.mygdx.bounceodyssey.Objects.Bricks;
 import com.mygdx.bounceodyssey.Objects.Coins;
@@ -56,7 +56,7 @@ public class Playscreen implements Screen {
 
     private OrthogonalTiledMapRenderer renderer;
     private DataDisplay dataDisplay;
-    private ControlSystem controlSystem;
+    private ControlSystemPlayer controlSystemPlayer;
 
     private Player player;
 
@@ -66,7 +66,7 @@ public class Playscreen implements Screen {
 
     private SpriteBatch spriteBatch;
 
-    public int PlayerX=1400;
+    public int PlayerX=Gdx.graphics.getWidth()/2-100;
 
     private Integer round=0;
     public Playscreen(BounceOdysseyGame game) {
@@ -77,9 +77,7 @@ public class Playscreen implements Screen {
         gamePort = new FitViewport(BounceOdysseyGame.V_Width / BounceOdysseyGame.PPM, BounceOdysseyGame.V_Height / BounceOdysseyGame.PPM, gamecam);
         dataDisplay = new DataDisplay(game.batch);
 
-        controlSystem = new ControlSystem(stage);
-
-        Bricks bricks = new Bricks(mapvariable);
+        controlSystemPlayer = new ControlSystemPlayer(stage);
 
         gamecam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
 
@@ -88,7 +86,6 @@ public class Playscreen implements Screen {
 
         player = new Player(world);
         player.getPlayerbatch(spriteBatch);
-
 
         loadMaps();
         renderer.render();
@@ -100,31 +97,23 @@ public class Playscreen implements Screen {
     @Override
     public void show(){
         Gdx.input.setInputProcessor(stage);
-
-
     }
     public void handleInput(float dt){
-        controlSystem.updateInput();
+        controlSystemPlayer.updateInput();
         player.update(dt);
-       if (controlSystem.isJumpbuttonPressed){
+
+       if (controlSystemPlayer.isJumpbuttonPressed){
            player.jump();
-           controlSystem.isJumpbuttonPressed=false;
-       }else if (controlSystem.isleftbuttonPressed){
+           controlSystemPlayer.isJumpbuttonPressed=false;
+       }else if (controlSystemPlayer.isleftbuttonPressed){
            player.left();
-
-
-       }else if (controlSystem.isrightbuttonPressed){
+       }else if (controlSystemPlayer.isrightbuttonPressed){
            player.right();
        }
-
-
     }
 
 
-    float second;
     public void update(float dt){
-
-
         handleInput(dt);
 
         if (player.b2body.getPosition().x>7480||player.b2body.getPosition().x<=1) {
@@ -144,7 +133,6 @@ public class Playscreen implements Screen {
             gamecam.position.x = 7480;
         }
 
-
         gamecam.update();
 
         renderer.setView(gamecam);
@@ -155,7 +143,6 @@ public class Playscreen implements Screen {
 
     @Override
     public void render(float delta) {
-
         update(delta);
         player.update(delta);
 
@@ -172,17 +159,19 @@ public class Playscreen implements Screen {
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
 
-        TextureRegion textureRegion = player.getTextureRegion();
+        TextureRegion textureRegion = player.getAnimation();
 
-        spriteBatch.begin();
-        spriteBatch.draw(textureRegion, PlayerX, (player.b2body.getPosition().y)*7-100);
-        spriteBatch.end();
+        if (textureRegion != null) {
+            spriteBatch.begin();
+            spriteBatch.draw(textureRegion, PlayerX, (player.b2body.getPosition().y)*7-100);
+            spriteBatch.end();
+        }
+
     }
 
     @Override
     public void resize(int width, int height) {
         gamePort.update(width, height);
-
     }
 
     @Override
@@ -208,8 +197,6 @@ public class Playscreen implements Screen {
         spriteBatch.dispose();
         stage.dispose();
         world.dispose();
-
-
     }
 
     public String nextlevel(){
@@ -222,7 +209,6 @@ public class Playscreen implements Screen {
     }
 
     public void loadMaps(){
-
         mapLoader = new TmxMapLoader();
         map = mapLoader.load(nextlevel());
         renderer = new OrthogonalTiledMapRenderer(map, 1 / BounceOdysseyGame.PPM);
@@ -256,15 +242,9 @@ public class Playscreen implements Screen {
             map = mapvariable.getMap();
             world = mapvariable.getWorld();
         }
-
-
-
-
-
     }
 
     public void TransitionMaps(){
-
         map = nextMap;
         renderer.setMap(map);
         player.newmap(250, player.b2body.getPosition().y);

@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 
-public class ControlSystem {
+public class ControlSystemPlayer {
 
     int width = Gdx.graphics.getWidth();
     int height = Gdx.graphics.getHeight();
@@ -29,7 +29,7 @@ public class ControlSystem {
 
     public boolean isrightbuttonPressed = false;
 
-    public ControlSystem(Stage stage) {
+    public ControlSystemPlayer(Stage stage) {
         this.stage = stage;
         createjumpbutton();
         createleftbutton();
@@ -79,22 +79,16 @@ public class ControlSystem {
     public void createleftbutton(){
         this.skin = new Skin();
 
-
         BitmapFont defaultFont = new BitmapFont();
         skin.add("default-font", defaultFont);
 
-
         Texture upTexture = new Texture(Gdx.files.internal("buttonLeftNormal.png"));
         Texture downTexture = new Texture(Gdx.files.internal("buttonDownLeft.png"));
-
-
         TextureRegionDrawable upDrawable = new TextureRegionDrawable(upTexture);
         TextureRegionDrawable downDrawable = new TextureRegionDrawable(downTexture);
 
-
         skin.add("up-button", upDrawable);
         skin.add("down-button", downDrawable);
-
 
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
         buttonStyle.up = upDrawable;
@@ -115,31 +109,19 @@ public class ControlSystem {
         stage.addActor(leftbutton);
     }
 
-
-
-
-
-
-
     public void createrightbutton(){
         this.skin = new Skin();
-
 
         BitmapFont defaultFont = new BitmapFont();
         skin.add("default-font", defaultFont);
 
-
         Texture upTexture = new Texture(Gdx.files.internal("buttonRightNormal.png"));
         Texture downTexture = new Texture(Gdx.files.internal("buttonDownRight.png"));
-
-
         TextureRegionDrawable upDrawable = new TextureRegionDrawable(upTexture);
         TextureRegionDrawable downDrawable = new TextureRegionDrawable(downTexture);
 
-
         skin.add("up-button", upDrawable);
         skin.add("down-button", downDrawable);
-
 
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
         buttonStyle.up = upDrawable;
@@ -191,6 +173,8 @@ public class ControlSystem {
                 isrightbuttonPressed = false;
             }
         });
+
+
 
     }
 

@@ -11,13 +11,13 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.mygdx.bounceodyssey.BounceOdysseyGame;
-import com.mygdx.bounceodyssey.ControlSystem.ControlSystem;
+import com.mygdx.bounceodyssey.ControlSystem.ControlSystemPlayer;
 import com.mygdx.bounceodyssey.Graphics.SpriteSheet;
 import com.mygdx.bounceodyssey.Variables.GameConstants;
 
 public class Player extends Sprite {
 
-    ControlSystem controlSystem = new ControlSystem(new Stage());
+    ControlSystemPlayer controlSystemPlayer = new ControlSystemPlayer(new Stage());
 
     Animationrenderer animationrenderer;
     public World world;
@@ -43,7 +43,6 @@ public class Player extends Sprite {
         this.world=world;
         definePlayer();
          animationrenderer = new Animationrenderer(world);
-
     }
     public void definePlayer(){
         GameConstants gc=new GameConstants();
@@ -57,7 +56,6 @@ public class Player extends Sprite {
         shape.setRadius(5/BounceOdysseyGame.PPM);
         fdef.shape = shape;
 
-
         b2body.createFixture(fdef);
         b2body.setLinearDamping(5);
 
@@ -67,7 +65,6 @@ public class Player extends Sprite {
 
 
     public void jump(){
-
         if (jumps>0){
             b2body.setLinearVelocity(new Vector2(0, 200));
             --jumps;
@@ -81,15 +78,11 @@ public class Player extends Sprite {
             }else{
                 animationrenderer.renderAnimationJumpLeft();
             }
-
-
         }else if (jumps<=1){
             if (lastdoublejump>=jumpcooldown*1.5){
                 jumps=2;
             }
-
         }
-
     }
     public void left(){
         DirectionRight = false;
@@ -99,7 +92,6 @@ public class Player extends Sprite {
         }else {
             animationrenderer.renderAnimationWalkLeft();
         }
-
     }
     public void right(){
         DirectionRight = true;
@@ -109,13 +101,10 @@ public class Player extends Sprite {
         }else {
             animationrenderer.renderAnimationWalkRight();
         }
-
-
     }
     public void update(float dt){
         lastdoublejump+=dt;
         animationrenderer.update(dt);
-
         if (GameConstants.ALIVE==false){
             animationrenderer.renderAnimationdead();
         }else if (b2body.getLinearVelocity().isZero()){
@@ -153,7 +142,7 @@ public class Player extends Sprite {
         this.batch = batch;
     }
 
-    public TextureRegion getTextureRegion(){
+    public TextureRegion getAnimation(){
         TextureRegion textureRegion = animationrenderer.getTextureRegion();
         return textureRegion;
     }

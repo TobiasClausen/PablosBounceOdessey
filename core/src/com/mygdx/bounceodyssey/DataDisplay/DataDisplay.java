@@ -11,13 +11,12 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.bounceodyssey.BounceOdysseyGame;
 import com.mygdx.bounceodyssey.Counter.Counter;
-
-import java.io.FileWriter;
-import java.io.IOException;
+import com.mygdx.bounceodyssey.Variables.GameConstants;
 
 
 public class DataDisplay {
 
+    public static boolean startsavescore=false;
     Counter counter = new Counter();
     public Stage stage;
     private Viewport viewport;
@@ -29,11 +28,11 @@ public class DataDisplay {
     Label timeLabel;
 
     Label PlayerLabel;
-    int outpuscore=0;
+
+    int outpuscore=1;
+
 
     public DataDisplay(SpriteBatch sb){
-
-
         score = 1;
         Timecounter=1;
 
@@ -47,9 +46,7 @@ public class DataDisplay {
         Label.LabelStyle labelStyle = new Label.LabelStyle(new BitmapFont(), Color.WHITE);
 
         scoreLabel = new Label(String.format("%06d", score), labelStyle);
-
         timeLabel = new Label(String.format("%06d", Timecounter), labelStyle);
-
         PlayerLabel = new Label("Pablo", labelStyle);
 
         table.add(PlayerLabel).expandX().padTop(10);
@@ -57,10 +54,6 @@ public class DataDisplay {
         table.add(scoreLabel).expandX().padTop(10);
 
         stage.addActor(table);
-
-
-
-
     }
 
     public void update(){
@@ -69,8 +62,13 @@ public class DataDisplay {
         if (score-Timecounter>0){
             outpuscore=score-Timecounter;
         }
+
         scoreLabel.setText(String.format("%06d", outpuscore));
         timeLabel.setText(String.format("%06d", Timecounter));
+
+        if (startsavescore){
+            savescore();
+        }
 
 
     }
@@ -94,16 +92,15 @@ public class DataDisplay {
         this.round=round;
 
     }
-    public static void savescore(){
-        try {
-            FileWriter writer = new FileWriter("score.txt", false);
-
-            writer.write("last score: ");
-
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void savescore(){
+        if (!GameConstants.ALIVE){
+            System.out.println("dead");
         }
     }
 
+
 }
+
+
+
+
