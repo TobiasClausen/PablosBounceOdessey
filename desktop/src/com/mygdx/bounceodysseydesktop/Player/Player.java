@@ -1,4 +1,4 @@
-package com.mygdx.bounceodyssey.Player;
+package com.mygdx.bounceodysseydesktop.Player;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -10,16 +10,16 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.mygdx.bounceodyssey.BounceOdysseyGame;
-import com.mygdx.bounceodyssey.ControlSystem.ControlSystemPlayer;
-import com.mygdx.bounceodyssey.Graphics.SpriteSheet;
-import com.mygdx.bounceodyssey.Variables.GameConstants;
+import com.mygdx.bounceodysseydesktop.BounceOdysseyGame;
+import com.mygdx.bounceodysseydesktop.ControlSystem.ControlSystemPlayer;
+import com.mygdx.bounceodysseydesktop.Graphics.SpriteSheet;
+import com.mygdx.bounceodysseydesktop.Variables.GameConstants;
 
 public class Player extends Sprite {
 
     ControlSystemPlayer controlSystemPlayer = new ControlSystemPlayer(new Stage());
 
-    Animationrenderer animationrenderer;
+    com.mygdx.bounceodysseydesktop.Player.Animationrenderer animationrenderer;
     public World world;
     public Body b2body;
 

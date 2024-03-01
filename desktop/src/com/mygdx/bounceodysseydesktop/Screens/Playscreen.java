@@ -1,4 +1,4 @@
-package com.mygdx.bounceodyssey.Screens;
+package com.mygdx.bounceodysseydesktop.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -19,18 +19,18 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.bounceodyssey.BounceOdysseyGame;
-import com.mygdx.bounceodyssey.ControlSystem.ControlSystemPlayer;
-import com.mygdx.bounceodyssey.DataDisplay.DataDisplay;
-import com.mygdx.bounceodyssey.Objects.Bricks;
-import com.mygdx.bounceodyssey.Objects.Coins;
-import com.mygdx.bounceodyssey.Objects.Deathzone;
-import com.mygdx.bounceodyssey.Objects.Ground;
-import com.mygdx.bounceodyssey.Objects.Newmap;
-import com.mygdx.bounceodyssey.Objects.Pipes;
-import com.mygdx.bounceodyssey.Player.Player;
-import com.mygdx.bounceodyssey.Variables.GameConstants;
-import com.mygdx.bounceodyssey.Variables.Mapvariable;
+import com.mygdx.bounceodysseydesktop.BounceOdysseyGame;
+import com.mygdx.bounceodysseydesktop.DataDisplay.DataDisplay;
+import com.mygdx.bounceodysseydesktop.Objects.Coins;
+import com.mygdx.bounceodysseydesktop.Objects.Newmap;
+import com.mygdx.bounceodysseydesktop.Variables.GameConstants;
+import com.mygdx.bounceodysseydesktop.ControlSystem.ControlSystemPlayer;
+import com.mygdx.bounceodysseydesktop.Objects.Bricks;
+import com.mygdx.bounceodysseydesktop.Objects.Deathzone;
+import com.mygdx.bounceodysseydesktop.Objects.Ground;
+import com.mygdx.bounceodysseydesktop.Objects.Pipes;
+import com.mygdx.bounceodysseydesktop.Player.Player;
+import com.mygdx.bounceodysseydesktop.Variables.Mapvariable;
 
 import java.util.Random;
 
@@ -39,13 +39,13 @@ public class Playscreen implements Screen {
 
     Stage stage = new Stage();
     GameConstants gc = new GameConstants();
-    Mapvariable mapvariable = new Mapvariable();
+    com.mygdx.bounceodysseydesktop.Variables.Mapvariable mapvariable = new Mapvariable();
     Newmap newmap = new Newmap(mapvariable);
-    Deathzone deathzone = new Deathzone(mapvariable);
-    Ground ground = new Ground(mapvariable);
-    Pipes pipes = new Pipes(mapvariable);
+    com.mygdx.bounceodysseydesktop.Objects.Deathzone deathzone = new Deathzone(mapvariable);
+    com.mygdx.bounceodysseydesktop.Objects.Ground ground = new Ground(mapvariable);
+    com.mygdx.bounceodysseydesktop.Objects.Pipes pipes = new Pipes(mapvariable);
     Coins coins = new Coins(mapvariable);
-    Bricks bricks = new Bricks(mapvariable);
+    com.mygdx.bounceodysseydesktop.Objects.Bricks bricks = new Bricks(mapvariable);
 
     private World world;
     public Body b2body;
@@ -57,9 +57,9 @@ public class Playscreen implements Screen {
 
     private OrthogonalTiledMapRenderer renderer;
     private DataDisplay dataDisplay;
-    private ControlSystemPlayer controlSystemPlayer;
+    private com.mygdx.bounceodysseydesktop.ControlSystem.ControlSystemPlayer controlSystemPlayer;
 
-    private Player player;
+    private com.mygdx.bounceodysseydesktop.Player.Player player;
 
     private BounceOdysseyGame game;
     private OrthographicCamera gamecam;

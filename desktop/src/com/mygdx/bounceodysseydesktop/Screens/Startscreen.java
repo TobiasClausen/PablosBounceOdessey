@@ -1,4 +1,4 @@
-package com.mygdx.bounceodyssey.Screens;
+package com.mygdx.bounceodysseydesktop.Screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -17,8 +17,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
-import com.mygdx.bounceodyssey.BounceOdysseyGame;
-import com.mygdx.bounceodyssey.Variables.GameConstants;
+import com.mygdx.bounceodysseydesktop.BounceOdysseyGame;
+import com.mygdx.bounceodysseydesktop.Variables.GameConstants;
 
 import java.io.BufferedReader;
 import java.io.IOException;
