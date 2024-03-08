@@ -51,7 +51,7 @@ public class Deathzone {
                 if ("deathzone".equals(fixA.getUserData()) || "deathzone".equals(fixB.getUserData())) {
                     System.out.println("Kollision mit der Deathzone!");
                     DataDisplay.startsavescore=true;
-
+                    GameConstants.START=false;
                     GameConstants.ALIVE = false;
 
                 }

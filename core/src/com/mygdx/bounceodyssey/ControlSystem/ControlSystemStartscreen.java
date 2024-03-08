@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
+import com.mygdx.bounceodyssey.Variables.GameConstants;
 
 public class ControlSystemStartscreen {
     private Skin skin;
@@ -22,6 +23,7 @@ public class ControlSystemStartscreen {
     public ControlSystemStartscreen(Stage stage){
         this.stage = stage;
         createstartbutton();
+        createdropdownmenu();
     }
 
     public void createstartbutton(){
@@ -59,11 +61,15 @@ public class ControlSystemStartscreen {
         startbutton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                start = true;
+                GameConstants.START = true;
                 System.out.println("Start button clicked");
             }
         });
         stage.addActor(startbutton);
+
+    }
+
+    public void createdropdownmenu(){
 
     }
 

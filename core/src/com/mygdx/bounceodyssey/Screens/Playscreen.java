@@ -73,6 +73,7 @@ public class Playscreen implements Screen {
     public Playscreen(BounceOdysseyGame game) {
         this.game = game;
 
+
         spriteBatch = new SpriteBatch();
         gamecam = new OrthographicCamera();
         gamePort = new FitViewport(BounceOdysseyGame.V_Width / BounceOdysseyGame.PPM, BounceOdysseyGame.V_Height / BounceOdysseyGame.PPM, gamecam);

@@ -86,7 +86,7 @@ public class Startscreen implements Screen {
 
 
         System.out.println(controlSystemStartscreen.start);
-        if (controlSystemStartscreen.start){
+        if (GameConstants.START){
             startGame();
             System.out.println("startgame");
         }
