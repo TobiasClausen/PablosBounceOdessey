@@ -1,10 +1,10 @@
-package com.mygdx.bounceodysseydesktop.Player;
+package com.mygdx.bounceodyssey.Player;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.bounceodysseydesktop.Variables.GameConstants;
+import com.mygdx.bounceodyssey.Variables.GameConstants;
 
 import java.util.Arrays;
 

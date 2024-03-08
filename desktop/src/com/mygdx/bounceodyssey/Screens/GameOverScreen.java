@@ -1,4 +1,4 @@
-package com.mygdx.bounceodysseydesktop.Screens;
+package com.mygdx.bounceodyssey.Screens;
 
 import com.badlogic.gdx.Screen;
 

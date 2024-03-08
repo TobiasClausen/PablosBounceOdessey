@@ -148,20 +148,5 @@ public class Player extends Sprite {
         return textureRegion;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 

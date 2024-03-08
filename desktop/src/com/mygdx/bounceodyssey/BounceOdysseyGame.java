@@ -1,10 +1,10 @@
-package com.mygdx.bounceodysseydesktop;
+package com.mygdx.bounceodyssey;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.bounceodysseydesktop.Variables.GameConstants;
-import com.mygdx.bounceodysseydesktop.Screens.Startscreen;
+import com.mygdx.bounceodyssey.Variables.GameConstants;
+import com.mygdx.bounceodyssey.Screens.Startscreen;
 
 import java.awt.Rectangle;
 
@@ -22,10 +22,10 @@ public class BounceOdysseyGame extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		setScreen(new com.mygdx.bounceodysseydesktop.Screens.Startscreen(this));
+		setScreen(new com.mygdx.bounceodyssey.Screens.Startscreen(this));
 		if (!GameConstants.ALIVE){
 			batch = new SpriteBatch();
-			setScreen(new com.mygdx.bounceodysseydesktop.Screens.Startscreen(this));
+			setScreen(new com.mygdx.bounceodyssey.Screens.Startscreen(this));
 		}
 	}
 

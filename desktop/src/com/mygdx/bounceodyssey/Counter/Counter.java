@@ -1,4 +1,4 @@
-package com.mygdx.bounceodysseydesktop.Counter;
+package com.mygdx.bounceodyssey.Counter;
 
 import com.badlogic.gdx.utils.Timer;
 

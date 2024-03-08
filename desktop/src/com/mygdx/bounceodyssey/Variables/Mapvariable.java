@@ -1,4 +1,4 @@
-package com.mygdx.bounceodysseydesktop.Variables;
+package com.mygdx.bounceodyssey.Variables;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.physics.box2d.Body;

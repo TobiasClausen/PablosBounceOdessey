@@ -10,14 +10,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Align;
 import com.mygdx.bounceodyssey.BounceOdysseyGame;
+import com.mygdx.bounceodyssey.ControlSystem.ControlSystemStartscreen;
 import com.mygdx.bounceodyssey.Variables.GameConstants;
 
 import java.io.BufferedReader;
@@ -45,10 +42,12 @@ public class Startscreen implements Screen {
     String score = "somthing went wrong";
     private Body b2body;
     private World world;
+    ControlSystemStartscreen controlSystemStartscreen;
 
     public Startscreen(Game game){
         stage = new Stage();
         this.game=game;
+        controlSystemStartscreen = new ControlSystemStartscreen(stage);
     }
 
 
@@ -66,7 +65,10 @@ public class Startscreen implements Screen {
         sprite.setPosition(0, 0);
         font.setColor(0, 0, 0,1);
 
-        createstartbutton();
+
+        Gdx.input.setInputProcessor(stage);
+
+
 
     }
 
@@ -82,8 +84,11 @@ public class Startscreen implements Screen {
         stage.act(delta);
         stage.draw();
 
-        if (Gdx.input.isTouched()){
+
+        System.out.println(controlSystemStartscreen.start);
+        if (controlSystemStartscreen.start){
             startGame();
+            System.out.println("startgame");
         }
 
         selctSkin();
@@ -118,42 +123,10 @@ public class Startscreen implements Screen {
 
 
     }
-    public void createstartbutton(){
-        this.skin = new Skin();
 
-        BitmapFont defaultFont = new BitmapFont();
-        skin.add("default-font", defaultFont);
-
-        Texture upTexture = new Texture(Gdx.files.internal("Startbuttondown.png"));
-        Texture downTexture = new Texture(Gdx.files.internal("Startbuttonup.png"));
-        TextureRegionDrawable upDrawable = new TextureRegionDrawable(upTexture);
-        TextureRegionDrawable downDrawable = new TextureRegionDrawable(downTexture);
-
-        skin.add("up-button", upDrawable);
-        skin.add("down-button", downDrawable);
-
-        TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
-        buttonStyle.up = upDrawable;
-        buttonStyle.down = downDrawable;
-        buttonStyle.font = defaultFont;
-        skin.add("default", buttonStyle);
-
-        startbutton = new TextButton(" ", skin);
-
-        startbutton.setSize(1000, 600);
-        startbutton.setPosition(width/2-500, height/2-600);
-
-        startbutton.setTransform(true);
-        startbutton.setScale(1);
-
-        startbutton.getLabel().setWrap(true);
-        startbutton.getLabel().setAlignment(Align.center);
-
-        stage.addActor(startbutton);
-    }
 
     public void selctSkin(){
-        GameConstants.skin="spritesheetblue.png";
+        GameConstants.skin="spritesheet.png";
     }
     public void readscore() throws IOException {
 
@@ -163,15 +136,5 @@ public class Startscreen implements Screen {
         game.setScreen(new Playscreen((BounceOdysseyGame)game));
     }
 
-    public void clicklistener(){
-        startbutton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                GameConstants.ALIVE=true;
-                System.out.println("start");
-                startGame();
-            }
-        });
-    }
 
 }

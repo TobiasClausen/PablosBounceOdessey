@@ -1,22 +1,27 @@
-package com.mygdx.bounceodysseydesktop.Objects;
+package com.mygdx.bounceodyssey.Objects;
 
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.mygdx.bounceodysseydesktop.BounceOdysseyGame;
-import com.mygdx.bounceodysseydesktop.Variables.Mapvariable;
+import com.mygdx.bounceodyssey.BounceOdysseyGame;
+import com.mygdx.bounceodyssey.Variables.Mapvariable;
 
-public class Ground {
+public class Pipes  {
 
-    Mapvariable mapvariable;
 
-    public Ground(Mapvariable mapvariable) {
+    com.mygdx.bounceodyssey.Variables.Mapvariable mapvariable;
+
+    public Pipes(Mapvariable mapvariable) {
         this.mapvariable = mapvariable;
     }
-    public void createGround(){
+
+    public void createPipes(){
+
+
+
         if (mapvariable.getMap() !=null){
-            for (MapObject object : mapvariable.getMap().getLayers().get(4).getObjects().getByType(RectangleMapObject.class)) {
+            for (MapObject object : mapvariable.getMap().getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
                 Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
                 mapvariable.getBdef().type = BodyDef.BodyType.StaticBody;
@@ -29,9 +34,6 @@ public class Ground {
                 mapvariable.getBody().createFixture( mapvariable.getFdef());
             }
         }
+
     }
-
-
-
-
 }

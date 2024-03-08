@@ -13,13 +13,20 @@ import com.badlogic.gdx.utils.Align;
 
 public class ControlSystemStartscreen {
     private Skin skin;
+    Stage stage;
     TextButton startbutton;
     int width = Gdx.graphics.getWidth();
     int height = Gdx.graphics.getHeight();
     public boolean start=false;
 
-    public void createstartbutton(Stage stage){
+    public ControlSystemStartscreen(Stage stage){
+        this.stage = stage;
+        createstartbutton();
+    }
+
+    public void createstartbutton(){
         this.skin = new Skin();
+
 
         BitmapFont defaultFont = new BitmapFont();
         skin.add("default-font", defaultFont);
@@ -38,7 +45,7 @@ public class ControlSystemStartscreen {
         buttonStyle.font = defaultFont;
         skin.add("default", buttonStyle);
 
-        startbutton = new TextButton(" ", skin);
+        startbutton = new TextButton("Start", skin);
 
         startbutton.setSize(1000, 600);
         startbutton.setPosition(width/2-500, height/2-600);
@@ -49,15 +56,15 @@ public class ControlSystemStartscreen {
         startbutton.getLabel().setWrap(true);
         startbutton.getLabel().setAlignment(Align.center);
 
-        stage.addActor(startbutton);
-    }
-
-    public void clicklistener(){
         startbutton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                  start=true;
+                start = true;
+                System.out.println("Start button clicked");
             }
         });
+        stage.addActor(startbutton);
+
     }
+
 }

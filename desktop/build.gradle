@@ -8,6 +8,7 @@ targetCompatibility = 1.8
 project.ext.mainClassName = "com.mygdx.bounceodyssey.DesktopLauncher"
 project.ext.assetsDir = new File("../assets")
 
+
 import org.gradle.internal.os.OperatingSystem
 
 tasks.register('run', JavaExec) {
@@ -55,6 +56,7 @@ eclipse.project.name = appName + "-desktop"
 
 project(":desktop") {
     apply plugin: "java"
+
     repositories {
         mavenCentral()
     }
@@ -65,14 +67,14 @@ project(":desktop") {
         implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
         implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
-        implementation 'org.lwjgl:lwjgl:3.3.0'
-        implementation 'org.lwjgl:lwjgl-opengl:3.3.0'
-        implementation 'org.lwjgl:lwjgl-glfw:3.3.0'
-        implementation 'org.lwjgl:lwjgl-stb:3.3.0'
-        runtimeOnly 'org.lwjgl:lwjgl:3.3.0:natives-windows'
-        runtimeOnly 'org.lwjgl:lwjgl-opengl:3.3.0:natives-windows'
-        runtimeOnly 'org.lwjgl:lwjgl-glfw:3.3.0:natives-windows'
-        runtimeOnly 'org.lwjgl:lwjgl-stb:3.3.0:natives-windows'
+        implementation 'org.lwjgl:lwjgl:3.3.3'
+        implementation 'org.lwjgl:lwjgl-opengl:3.3.3'
+        implementation 'org.lwjgl:lwjgl-glfw:3.3.3'
+        implementation 'org.lwjgl:lwjgl-stb:3.3.3'
+        runtimeOnly 'org.lwjgl:lwjgl:3.3.3:natives-windows'
+        runtimeOnly 'org.lwjgl:lwjgl-opengl:3.3.3:natives-windows'
+        runtimeOnly 'org.lwjgl:lwjgl-glfw:3.3.3:natives-windows'
+        runtimeOnly 'org.lwjgl:lwjgl-stb:3.3.3:natives-windows'
         // Andere Abhängigkeiten
     }
 }

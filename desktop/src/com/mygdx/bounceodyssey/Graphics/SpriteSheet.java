@@ -1,4 +1,4 @@
-package com.mygdx.bounceodysseydesktop.Graphics;
+package com.mygdx.bounceodyssey.Graphics;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;

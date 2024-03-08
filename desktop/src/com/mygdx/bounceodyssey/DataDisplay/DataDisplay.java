@@ -1,4 +1,4 @@
-package com.mygdx.bounceodysseydesktop.DataDisplay;
+package com.mygdx.bounceodyssey.DataDisplay;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -9,15 +9,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.bounceodysseydesktop.BounceOdysseyGame;
-import com.mygdx.bounceodysseydesktop.Variables.GameConstants;
-import com.mygdx.bounceodysseydesktop.Counter.Counter;
+import com.mygdx.bounceodyssey.BounceOdysseyGame;
+import com.mygdx.bounceodyssey.Variables.GameConstants;
+import com.mygdx.bounceodyssey.Counter.Counter;
 
 
 public class DataDisplay {
 
     public static boolean startsavescore=false;
-    com.mygdx.bounceodysseydesktop.Counter.Counter counter = new Counter();
+    com.mygdx.bounceodyssey.Counter.Counter counter = new Counter();
     public Stage stage;
     private Viewport viewport;
     private Integer Timecounter;

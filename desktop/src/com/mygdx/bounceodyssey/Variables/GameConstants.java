@@ -1,4 +1,4 @@
-package com.mygdx.bounceodysseydesktop.Variables;
+package com.mygdx.bounceodyssey.Variables;
 
 public class GameConstants {
     public static boolean ALIVE = false;

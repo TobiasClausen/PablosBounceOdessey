@@ -1,4 +1,4 @@
-package com.mygdx.bounceodysseydesktop.Screens;
+package com.mygdx.bounceodyssey.Screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -12,16 +12,20 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
-import com.mygdx.bounceodysseydesktop.BounceOdysseyGame;
-import com.mygdx.bounceodysseydesktop.Variables.GameConstants;
+import com.badlogic.gdx.utils.Array;
+import com.mygdx.bounceodyssey.BounceOdysseyGame;
+import com.mygdx.bounceodyssey.Variables.GameConstants;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+
+
 
 public class Startscreen implements Screen {
     public boolean start =false;
@@ -66,7 +70,10 @@ public class Startscreen implements Screen {
         sprite.setPosition(0, 0);
         font.setColor(0, 0, 0,1);
 
+
         createstartbutton();
+        createDropDownMenue();
+
 
     }
 
@@ -153,7 +160,7 @@ public class Startscreen implements Screen {
     }
 
     public void selctSkin(){
-        GameConstants.skin="spritesheetblue.png";
+        GameConstants.skin="spritesheet.png";
     }
     public void readscore() throws IOException {
 
@@ -168,10 +175,29 @@ public class Startscreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 GameConstants.ALIVE=true;
-                System.out.println("start");
                 startGame();
             }
         });
+    }
+
+    public void createDropDownMenue(){
+        Skin skin = new Skin(Gdx.files.internal("uiskin.json")); // Pfad zu Ihrem Skin-File
+
+        // Erstellen der SelectBox
+        SelectBox<String> selectBox = new SelectBox<>(skin);
+
+        // Hinzufügen der Optionen zum Dropdown-Menü
+        Array<String> options = new Array<>();
+        options.add("Option 1");
+        options.add("Option 2");
+        options.add("Option 3");
+        selectBox.setItems(options);
+
+        // Positionierung der SelectBox in der oberen rechten Ecke
+        selectBox.setPosition(width - selectBox.getWidth() - 10, height - selectBox.getHeight() - 10); // Sie müssen die 'width' und 'height' entsprechend anpassen
+
+        // Hinzufügen der SelectBox zum Stage
+        stage.addActor(selectBox);
     }
 
 }
