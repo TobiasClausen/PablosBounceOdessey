@@ -19,6 +19,8 @@ public class Mushroom extends Sprite {
     private Body b2body;
     private Animationrenderer animationrenderer;
     Random rand;
+    int direction=1;
+    int countUpdateMushrooms;
 
     public Mushroom(World world, int x, int y, Body b2body){
         this.world=world;
@@ -46,14 +48,21 @@ public class Mushroom extends Sprite {
 
         shape.dispose();
     }
-    public void updateMushroom(){
+    public void updateMushroom(float playerx){
         b2body.setLinearVelocity(new Vector2(0, b2body.getLinearVelocity().y-10));
-        int direction = rand.nextInt(2);
+        if (countUpdateMushrooms == 20){
+            changedirection();
+            countUpdateMushrooms = 0;
+        }
+        countUpdateMushrooms++;
+
         if (direction==0){
             b2body.setLinearVelocity(new Vector2(-50, b2body.getLinearVelocity().y-10));
         }else {
             b2body.setLinearVelocity(new Vector2(50, b2body.getLinearVelocity().y-10));
         }
-
+    }
+    private void changedirection(){
+        direction = rand.nextInt(2);
     }
 }

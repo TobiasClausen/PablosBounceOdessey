@@ -79,6 +79,7 @@ public class Playscreen implements Screen {
     private Body mushroomBody;
     private List<Mushroom> mushrooms = new ArrayList<>();
 
+
     public Playscreen(BounceOdysseyGame game) {
         this.game = game;
 
@@ -127,6 +128,7 @@ public class Playscreen implements Screen {
     public void update(float dt){
         handleInput(dt);
         updateMushrooms();
+
 
         if (player.b2body.getPosition().x>7480||player.b2body.getPosition().x<=1) {
             TransitionMaps();
@@ -276,7 +278,7 @@ public class Playscreen implements Screen {
     }
     private void updateMushrooms() {
         for (Mushroom mushroom : mushrooms) {
-            mushroom.updateMushroom();
+            mushroom.updateMushroom(player.b2body.getPosition().x);
         }
     }
 
