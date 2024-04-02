@@ -74,8 +74,8 @@ public class Playscreen implements Screen {
 
 
     private Integer round=0;
-    private Mushroom mushroom;
-    private int mushroomcount=0;
+    private Mushroom createmushroom;
+    private int mushroomcount=1;
     private Body mushroomBody;
     private List<Mushroom> mushrooms = new ArrayList<>();
 
@@ -127,7 +127,7 @@ public class Playscreen implements Screen {
 
     public void update(float dt){
         handleInput(dt);
-        updateMushrooms();
+        updateMushrooms(dt);
 
 
         if (player.b2body.getPosition().x>7480||player.b2body.getPosition().x<=1) {
@@ -138,7 +138,7 @@ public class Playscreen implements Screen {
             callUpMushrooms((int)player.b2body.getPosition().x);
 
         }
-        System.out.println(player.b2body.getPosition().x);
+
 
         dataDisplay.setScore(player.getXCoordinate());
         dataDisplay.update();
@@ -157,6 +157,10 @@ public class Playscreen implements Screen {
         renderer.setView(gamecam);
         player.setPosition(player.getX(), player.getY());
         deathzone.collisondetection();
+
+        for (Mushroom mushroom:mushrooms){
+            mushroom.collisondetection(player.getYCoordinate());
+        }
     }
 
     @Override
@@ -177,11 +181,17 @@ public class Playscreen implements Screen {
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
 
-        TextureRegion textureRegion = player.getAnimation();
+        TextureRegion textureRegionPlayer = player.getAnimation();
+        spriteBatch.begin();
+        for (Mushroom mushroom : mushrooms) {
+            TextureRegion textureRegionMushrooms = mushroom.getAnimation();
+            if (textureRegionMushrooms!=null){
+                spriteBatch.draw(textureRegionMushrooms, mushroom.getX(), mushroom.getY());
+            }
+        }
 
-        if (textureRegion != null) {
-            spriteBatch.begin();
-            spriteBatch.draw(textureRegion, PlayerX, (player.b2body.getPosition().y)*5-player.getYAxisKomulator());
+        if (textureRegionPlayer != null) {
+            spriteBatch.draw(textureRegionPlayer, PlayerX, (player.b2body.getPosition().y)*5-player.getYAxisKomulator());
             spriteBatch.end();
         }
 
@@ -273,12 +283,12 @@ public class Playscreen implements Screen {
         nextMap = mapLoader.load(nextlevel());
     }
     private void callUpMushrooms(int x){
-        mushroom = new Mushroom(world, x, 100, mushroomBody);
-        mushrooms.add(mushroom);
+        createmushroom = new Mushroom(world, x+400, 200, mushroomBody);
+        mushrooms.add(createmushroom);
     }
-    private void updateMushrooms() {
+    private void updateMushrooms(float dt) {
         for (Mushroom mushroom : mushrooms) {
-            mushroom.updateMushroom(player.b2body.getPosition().x);
+            mushroom.updateMushroom(player.b2body.getPosition().x, player.b2body.getPosition().y);
         }
     }
 

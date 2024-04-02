@@ -145,6 +145,7 @@ public class Playscreen implements Screen {
 
         player.setPosition(player.getX(), player.getY());
         deathzone.collisondetection();
+        for (Mushroom mushroom : mush)
     }
 
     @Override

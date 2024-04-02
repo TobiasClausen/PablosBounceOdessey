@@ -14,14 +14,14 @@ public class Mushroom extends Sprite {
     private  int x;
     private int y;
     private Body b2body;
-    private Animationrenderer animationrenderer;
+    private AnimationrendererPlayer animationrendererPlayer;
     public Mushroom (World world, int x, int y, Body b2body){
         this.world=world;
         this.x=x;
         this.y=y;
         this.b2body=b2body;
         defineMushroom();
-        animationrenderer = new Animationrenderer(world);
+        animationrendererPlayer = new AnimationrendererPlayer(world);
     }
     public void defineMushroom(){
         GameConstants gc=new GameConstants();

@@ -8,7 +8,7 @@ import com.mygdx.bounceodyssey.Variables.GameConstants;
 
 import java.util.Arrays;
 
-public class Animationrenderer {
+public class AnimationrendererPlayer {
     private TextureRegion currentFrame;
     int colums = 16;
     int rows = 14;
@@ -24,7 +24,7 @@ public class Animationrenderer {
     private Animation<TextureRegion> jumpRightAnimation;
     private Animation<TextureRegion> dead;
     private float elapsedTime = 0;
-    public Animationrenderer(World world){
+    public AnimationrendererPlayer(World world){
         this.world=world;
         spriteSheet = new Texture(GameConstants.skin);
         TextureRegion[][] tmpFrames = TextureRegion.split(spriteSheet, 3997/colums+7, 3512/rows);

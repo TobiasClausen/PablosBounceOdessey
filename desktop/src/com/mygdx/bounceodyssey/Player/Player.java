@@ -19,7 +19,7 @@ public class Player extends Sprite {
 
     ControlSystemPlayer controlSystemPlayer = new ControlSystemPlayer(new Stage());
 
-    com.mygdx.bounceodyssey.Player.Animationrenderer animationrenderer;
+    AnimationrendererPlayer animationrendererPlayer;
     public World world;
     public Body b2body;
 private int YAxisKomulator=90;
@@ -43,7 +43,7 @@ private int YAxisKomulator=90;
         this.world=world;
         this.b2body=b2body;
         definePlayer();
-        animationrenderer = new Animationrenderer(world);
+        animationrendererPlayer = new AnimationrendererPlayer(world);
     }
     public void definePlayer(){
         GameConstants gc=new GameConstants();
@@ -76,12 +76,12 @@ private int YAxisKomulator=90;
 
 
             if (GameConstants.ALIVE==false){
-                animationrenderer.renderAnimationdead();
+                animationrendererPlayer.renderAnimationdead();
             }
             else if(DirectionRight){
-                animationrenderer.renderAnimationJumpRight();
+                animationrendererPlayer.renderAnimationJumpRight();
             }else{
-                animationrenderer.renderAnimationJumpLeft();
+                animationrendererPlayer.renderAnimationJumpLeft();
             }
         }else if (jumps<=1){
             if (lastdoublejump>=jumpcooldown*0.5){
@@ -94,9 +94,9 @@ private int YAxisKomulator=90;
         b2body.setLinearVelocity(new Vector2(-100, b2body.getLinearVelocity().y-10));
         YAxisKomulator=70;
         if (GameConstants.ALIVE==false){
-            animationrenderer.renderAnimationdead();
+            animationrendererPlayer.renderAnimationdead();
         }else {
-            animationrenderer.renderAnimationWalkLeft();
+            animationrendererPlayer.renderAnimationWalkLeft();
         }
     }
     public void right(){
@@ -104,22 +104,22 @@ private int YAxisKomulator=90;
         b2body.setLinearVelocity(new Vector2(100, b2body.getLinearVelocity().y-10));
         YAxisKomulator=70;
         if (GameConstants.ALIVE==false){
-            animationrenderer.renderAnimationdead();
+            animationrendererPlayer.renderAnimationdead();
         }else {
-            animationrenderer.renderAnimationWalkRight();
+            animationrendererPlayer.renderAnimationWalkRight();
         }
     }
     public void update(float dt){
         lastdoublejump+=dt;
-        animationrenderer.update(dt);
+        animationrendererPlayer.update(dt);
         if (GameConstants.ALIVE==false){
-            animationrenderer.renderAnimationdead();
+            animationrendererPlayer.renderAnimationdead();
         }else if (b2body.getLinearVelocity().isZero()){
             YAxisKomulator=90;
             if(DirectionRight){
-                animationrenderer.renderStandRight();
+                animationrendererPlayer.renderStandRight();
             }else{
-                animationrenderer.renderStandLeft();
+                animationrendererPlayer.renderStandLeft();
             }
         }
 
@@ -151,7 +151,7 @@ private int YAxisKomulator=90;
     }
 
     public TextureRegion getAnimation(){
-        TextureRegion textureRegion = animationrenderer.getTextureRegion();
+        TextureRegion textureRegion = animationrendererPlayer.getTextureRegion();
         return textureRegion;
     }
     public int getYAxisKomulator(){
