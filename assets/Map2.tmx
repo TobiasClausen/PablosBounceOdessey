@@ -11,15 +11,15 @@
    eJzt2UFqwkAYhuFJCtreoKvcxtpz1Hbbe9uK9Qj+JQhhiDbW0SB5HngXRkiy+xxMCQAAAAAAAADK+azb+izi+ku0PPI9APC3utOv7u72bfBbXFtF7wP3t7nw/QBgSo6df8/RJPsLAEOV3N5T+/vQ6Tn7DABTcvjvt9u5mjRsfwGAMvLtveX+rqOvGz4PAP6r5D7mu7uJvgveO5fv7axKaV4VeuAV+Z0AMG2HnXyt2y45r/ade59iCx9P7OE2+ol2A++dy/f2Xvb3Xt4TYCqqkfqo28Z6viRJY7YHze8YdA==
   </data>
  </layer>
- <objectgroup id="10" name="Newmap"/>
- <objectgroup id="11" name="Deathzone">
+ <objectgroup id="10" name="Newmap" visible="0"/>
+ <objectgroup id="11" name="Deathzone" visible="0">
   <object id="94" x="490.449" y="185.95"/>
   <object id="109" x="495.274" y="176.44" width="16" height="16"/>
  </objectgroup>
- <objectgroup color="#000000" id="3" name="ground" tintcolor="#0000ff00">
+ <objectgroup color="#000000" id="3" name="ground" visible="0" tintcolor="#0000ff00">
   <object id="67" x="-0.376657" y="192.301" width="7679.55" height="16"/>
  </objectgroup>
- <objectgroup color="#00ff00" id="4" name="pipes" tintcolor="#000000">
+ <objectgroup color="#00ff00" id="4" name="pipes" visible="0" tintcolor="#000000">
   <properties>
    <property name="Collision" type="bool" value="true"/>
   </properties>
@@ -28,13 +28,13 @@
   <object id="89" x="1279.52" y="144.447" width="32" height="48"/>
   <object id="90" x="1951.65" y="159.943" width="32" height="32"/>
  </objectgroup>
- <objectgroup color="#00ff00" id="5" name="coins" tintcolor="#000000">
+ <objectgroup color="#00ff00" id="5" name="coins" visible="0" tintcolor="#000000">
   <properties>
    <property name="Collision" type="bool" value="true"/>
   </properties>
   <object id="85" x="1008.27" y="111.77" width="16" height="16"/>
  </objectgroup>
- <objectgroup color="#00ff00" id="6" name="bricks" tintcolor="#000000">
+ <objectgroup color="#00ff00" id="6" name="bricks" visible="0" tintcolor="#000000">
   <properties>
    <property name="Collision" type="bool" value="true"/>
   </properties>

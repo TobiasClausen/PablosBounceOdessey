@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="480" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="132">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="480" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="133">
  <tileset firstgid="1" source="Bausteine.tsx"/>
  <layer id="1" name="Background" width="480" height="13">
   <data encoding="base64" compression="zlib">
@@ -11,21 +11,22 @@
    eJzt19lNw0AUBdCJkVg64MvdsIi1BxYBBdAI/1BWemARUAIvCpZGJgnGCbalnCNdKXbG47F/7jgl6k6LlM4i50XfKwGAYTqKjjyOnOhKAOjMTfTubeRuoP1rfwAA3Rv6/gAA5tmL7tqPHOgwAGityNLERQy8jFw1vKBsuS4AoJ0y6V8A6FKZfu/fjSy7tWMA4G/K1Kx/AYDVqHdvl/37HHnp8H4A0FY553fbufK8RV6XnDOfuy7v28n/m6OUtkY/xz18ZyjsEwDWW9WTh8U0y3yvzvru3Yku3J7Rh5X3yEfks+Hc9XN53+bH1fNMUnXvvA4ex/jHyNOCda7Son0CAP0Y9ZTrYpq+7v9fzzPJfRpu8n1C3+9MRGSd8wVnZTOL
   </data>
  </layer>
- <objectgroup id="10" name="Newmap"/>
- <objectgroup id="11" name="Deathzone">
+ <objectgroup id="10" name="Newmap" visible="0"/>
+ <objectgroup id="11" name="Deathzone" visible="0">
   <object id="94" x="490.449" y="185.95"/>
   <object id="95" x="509.897" y="185.95"/>
   <object id="117" x="1321.74" y="185.507"/>
   <object id="118" x="1341.55" y="185.507"/>
-  <object id="119" x="1348.31" y="188.406"/>
+  <object id="119" x="1349.91" y="188.406"/>
   <object id="126" x="1992.75" y="198.34"/>
   <object id="127" x="2013.04" y="198.423"/>
   <object id="128" x="2021.66" y="198.823"/>
+  <object id="132" x="498.144" y="186.006"/>
  </objectgroup>
- <objectgroup color="#000000" id="3" name="ground" tintcolor="#0000ff00">
+ <objectgroup color="#000000" id="3" name="ground" visible="0" tintcolor="#0000ff00">
   <object id="67" x="-0.376657" y="192.301" width="7680.9" height="16"/>
  </objectgroup>
- <objectgroup color="#00ff00" id="4" name="pipes" tintcolor="#000000">
+ <objectgroup color="#00ff00" id="4" name="pipes" visible="0" tintcolor="#000000">
   <properties>
    <property name="Collision" type="bool" value="true"/>
   </properties>
@@ -34,13 +35,13 @@
   <object id="89" x="1279.52" y="144.447" width="32" height="48"/>
   <object id="90" x="1951.65" y="159.943" width="32" height="32"/>
  </objectgroup>
- <objectgroup color="#00ff00" id="5" name="coins" tintcolor="#000000">
+ <objectgroup color="#00ff00" id="5" name="coins" visible="0" tintcolor="#000000">
   <properties>
    <property name="Collision" type="bool" value="true"/>
   </properties>
   <object id="85" x="1008.27" y="111.77" width="16" height="16"/>
  </objectgroup>
- <objectgroup color="#00ff00" id="6" name="bricks" tintcolor="#000000">
+ <objectgroup color="#00ff00" id="6" name="bricks" visible="0" tintcolor="#000000">
   <properties>
    <property name="Collision" type="bool" value="true"/>
   </properties>
@@ -59,7 +60,7 @@
   <object id="82" x="1136.11" y="159.872" width="16" height="16"/>
   <object id="83" x="832.399" y="95.6286" width="32" height="16"/>
   <object id="113" x="1199.63" y="175.969" width="16" height="16"/>
-  <object id="114" x="1360.47" y="176.943" width="16" height="16"/>
+  <object id="114" x="1360.47" y="175.746" width="16" height="16"/>
   <object id="115" x="1260.95" y="175.969" width="16" height="16"/>
   <object id="116" x="1935.96" y="176.541" width="16" height="16"/>
   <object id="120" x="1264.46" y="155.768" width="16" height="16"/>
@@ -68,8 +69,8 @@
   <object id="123" x="1407.94" y="175.575" width="16" height="16"/>
   <object id="124" x="1392.48" y="176.058" width="16" height="16"/>
   <object id="125" x="1375.57" y="175.575" width="16" height="16"/>
-  <object id="129" x="463.498" y="158.184" width="16" height="16"/>
-  <object id="130" x="512.29" y="160.116" width="16" height="16"/>
-  <object id="131" x="528.232" y="177.024" width="16" height="16"/>
+  <object id="129" x="464.296" y="159.381" width="16" height="16"/>
+  <object id="130" x="512.689" y="160.116" width="16" height="16"/>
+  <object id="131" x="528.232" y="175.827" width="16" height="16"/>
  </objectgroup>
 </map>

@@ -23,6 +23,7 @@ import com.mygdx.bounceodyssey.BounceOdysseyGame;
 import com.mygdx.bounceodyssey.DataDisplay.DataDisplay;
 import com.mygdx.bounceodyssey.Objects.Coins;
 import com.mygdx.bounceodyssey.Objects.Newmap;
+import com.mygdx.bounceodyssey.Player.Mushroom;
 import com.mygdx.bounceodyssey.Variables.GameConstants;
 import com.mygdx.bounceodyssey.ControlSystem.ControlSystemPlayer;
 import com.mygdx.bounceodyssey.Objects.Bricks;
@@ -66,6 +67,7 @@ public class Playscreen implements Screen {
     private Viewport gamePort;
 
     private SpriteBatch spriteBatch;
+    private Mushroom mushroom;
 
     public int PlayerX=Gdx.graphics.getWidth()/2-90;
 
@@ -120,6 +122,9 @@ public class Playscreen implements Screen {
         if (player.b2body.getPosition().x>7480||player.b2body.getPosition().x<=1) {
             TransitionMaps();
         }
+        if(player.b2body.getPosition().x%250==0){
+            callUpMushrooms((int)player.b2body.getPosition().x);
+        }
 
         dataDisplay.setScore(player.getXCoordinate());
         dataDisplay.update();
@@ -164,7 +169,7 @@ public class Playscreen implements Screen {
 
         if (textureRegion != null) {
             spriteBatch.begin();
-            spriteBatch.draw(textureRegion, PlayerX, (player.b2body.getPosition().y)*5-70);
+            spriteBatch.draw(textureRegion, PlayerX, (player.b2body.getPosition().y)*5-player.getYAxisKomulator());
             spriteBatch.end();
         }
 
@@ -254,6 +259,11 @@ public class Playscreen implements Screen {
 
         TmxMapLoader mapLoader = new TmxMapLoader();
         nextMap = mapLoader.load(nextlevel());
+    }
+
+    private void callUpMushrooms(int x){
+        mushroom = new Mushroom(world, x, 100, b2body);
+
     }
 
 }

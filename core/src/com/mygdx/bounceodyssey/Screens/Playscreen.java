@@ -28,10 +28,13 @@ import com.mygdx.bounceodyssey.Objects.Deathzone;
 import com.mygdx.bounceodyssey.Objects.Ground;
 import com.mygdx.bounceodyssey.Objects.Newmap;
 import com.mygdx.bounceodyssey.Objects.Pipes;
+import com.mygdx.bounceodyssey.Player.Mushroom;
 import com.mygdx.bounceodyssey.Player.Player;
 import com.mygdx.bounceodyssey.Variables.GameConstants;
 import com.mygdx.bounceodyssey.Variables.Mapvariable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -69,7 +72,13 @@ public class Playscreen implements Screen {
 
     public int PlayerX=Gdx.graphics.getWidth()/2-90;
 
+
     private Integer round=0;
+    private Mushroom mushroom;
+    private int mushroomcount=0;
+    private Body mushroomBody;
+    private List<Mushroom> mushrooms = new ArrayList<>();
+
     public Playscreen(BounceOdysseyGame game) {
         this.game = game;
 
@@ -117,10 +126,17 @@ public class Playscreen implements Screen {
 
     public void update(float dt){
         handleInput(dt);
+        updateMushrooms();
 
         if (player.b2body.getPosition().x>7480||player.b2body.getPosition().x<=1) {
             TransitionMaps();
         }
+        if (player.b2body.getPosition().x>mushroomcount*250){
+            mushroomcount++;
+            callUpMushrooms((int)player.b2body.getPosition().x);
+
+        }
+        System.out.println(player.b2body.getPosition().x);
 
         dataDisplay.setScore(player.getXCoordinate());
         dataDisplay.update();
@@ -136,9 +152,7 @@ public class Playscreen implements Screen {
         }
 
         gamecam.update();
-
         renderer.setView(gamecam);
-
         player.setPosition(player.getX(), player.getY());
         deathzone.collisondetection();
     }
@@ -165,7 +179,7 @@ public class Playscreen implements Screen {
 
         if (textureRegion != null) {
             spriteBatch.begin();
-            spriteBatch.draw(textureRegion, PlayerX, (player.b2body.getPosition().y)*5-70);
+            spriteBatch.draw(textureRegion, PlayerX, (player.b2body.getPosition().y)*5-player.getYAxisKomulator());
             spriteBatch.end();
         }
 
@@ -202,10 +216,10 @@ public class Playscreen implements Screen {
     }
 
     public String nextlevel(){
-        String[] Maps = {"Map1.tmx", "Map2.tmx"};
+        String[] Maps = {"Map2.tmx","Map1.tmx"};
 
         Random rand = new Random();
-        int randomNum = rand.nextInt(Maps.length);
+        int randomNum = rand.nextInt(Maps.length-1);
 
         return Maps[randomNum];
     }
@@ -255,6 +269,15 @@ public class Playscreen implements Screen {
 
         TmxMapLoader mapLoader = new TmxMapLoader();
         nextMap = mapLoader.load(nextlevel());
+    }
+    private void callUpMushrooms(int x){
+        mushroom = new Mushroom(world, x, 100, mushroomBody);
+        mushrooms.add(mushroom);
+    }
+    private void updateMushrooms() {
+        for (Mushroom mushroom : mushrooms) {
+            mushroom.updateMushroom();
+        }
     }
 
 }

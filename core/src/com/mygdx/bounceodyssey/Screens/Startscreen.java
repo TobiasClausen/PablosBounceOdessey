@@ -21,7 +21,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 public class Startscreen implements Screen {
-    public boolean start =false;
+    public boolean start = false;
     private Skin skin;
 
     private SpriteBatch batch;
@@ -47,7 +47,7 @@ public class Startscreen implements Screen {
     public Startscreen(Game game){
         stage = new Stage();
         this.game=game;
-        controlSystemStartscreen = new ControlSystemStartscreen(stage);
+        controlSystemStartscreen = new ControlSystemStartscreen(stage, game);
     }
 
 
@@ -86,7 +86,7 @@ public class Startscreen implements Screen {
 
 
         System.out.println(controlSystemStartscreen.start);
-        if (GameConstants.START){
+        if (Gdx.input.isTouched()){
             startGame();
             System.out.println("startgame");
         }

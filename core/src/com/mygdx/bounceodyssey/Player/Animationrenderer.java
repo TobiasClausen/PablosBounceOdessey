@@ -27,7 +27,7 @@ public class Animationrenderer {
     public Animationrenderer(World world){
         this.world=world;
         spriteSheet = new Texture(GameConstants.skin);
-        TextureRegion[][] tmpFrames = TextureRegion.split(spriteSheet, spriteSheet.getWidth()/colums+7, spriteSheet.getHeight()/rows);
+        TextureRegion[][] tmpFrames = TextureRegion.split(spriteSheet, 3997/colums+7, 3512/rows);
 
         //Rechts Stehen
         TextureRegion[] standStillRightFrames = Arrays.copyOfRange(tmpFrames[0], 0, 15);
@@ -38,7 +38,6 @@ public class Animationrenderer {
         //rechts Springen
         TextureRegion[] jumpRightFrames = Arrays.copyOfRange(tmpFrames[10], 0, 15);
         jumpRightAnimation = new Animation<>(0.1F, jumpRightFrames);
-
         //Links Stehen
         TextureRegion[] standStillLeftFrames = Arrays.copyOfRange(tmpFrames[1], 0, 15);
         standLeftAnimation = new Animation<>(0.1F, standStillLeftFrames);
@@ -48,7 +47,6 @@ public class Animationrenderer {
         //Links Springen
         TextureRegion[] jumpLeftFrames = Arrays.copyOfRange(tmpFrames[11], 0, 15);
         jumpLeftAnimation = new Animation<>(0.1F, jumpLeftFrames);
-
         //dead
         TextureRegion[] deadFrames = Arrays.copyOfRange(tmpFrames[3], 14, 15);
         dead = new Animation<>(0.1F, deadFrames);

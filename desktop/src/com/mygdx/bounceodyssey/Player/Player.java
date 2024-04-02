@@ -22,7 +22,7 @@ public class Player extends Sprite {
     com.mygdx.bounceodyssey.Player.Animationrenderer animationrenderer;
     public World world;
     public Body b2body;
-
+private int YAxisKomulator=90;
     public int x=400;
     public int y=32;
 
@@ -43,7 +43,7 @@ public class Player extends Sprite {
         this.world=world;
         this.b2body=b2body;
         definePlayer();
-         animationrenderer = new Animationrenderer(world);
+        animationrenderer = new Animationrenderer(world);
     }
     public void definePlayer(){
         GameConstants gc=new GameConstants();
@@ -67,9 +67,13 @@ public class Player extends Sprite {
 
     public void jump(){
         if (jumps>0){
-            b2body.setLinearVelocity(new Vector2(0, 200));
+            b2body.setLinearVelocity(new Vector2(0, 250));
+            YAxisKomulator=20;
             --jumps;
-            lastdoublejump = 0;
+            if (jumps==0){
+                lastdoublejump = 0;
+            }
+
 
             if (GameConstants.ALIVE==false){
                 animationrenderer.renderAnimationdead();
@@ -80,7 +84,7 @@ public class Player extends Sprite {
                 animationrenderer.renderAnimationJumpLeft();
             }
         }else if (jumps<=1){
-            if (lastdoublejump>=jumpcooldown*1.5){
+            if (lastdoublejump>=jumpcooldown*0.5){
                 jumps=2;
             }
         }
@@ -88,6 +92,7 @@ public class Player extends Sprite {
     public void left(){
         DirectionRight = false;
         b2body.setLinearVelocity(new Vector2(-100, b2body.getLinearVelocity().y-10));
+        YAxisKomulator=70;
         if (GameConstants.ALIVE==false){
             animationrenderer.renderAnimationdead();
         }else {
@@ -97,6 +102,7 @@ public class Player extends Sprite {
     public void right(){
         DirectionRight = true;
         b2body.setLinearVelocity(new Vector2(100, b2body.getLinearVelocity().y-10));
+        YAxisKomulator=70;
         if (GameConstants.ALIVE==false){
             animationrenderer.renderAnimationdead();
         }else {
@@ -109,6 +115,7 @@ public class Player extends Sprite {
         if (GameConstants.ALIVE==false){
             animationrenderer.renderAnimationdead();
         }else if (b2body.getLinearVelocity().isZero()){
+            YAxisKomulator=90;
             if(DirectionRight){
                 animationrenderer.renderStandRight();
             }else{
@@ -146,6 +153,9 @@ public class Player extends Sprite {
     public TextureRegion getAnimation(){
         TextureRegion textureRegion = animationrenderer.getTextureRegion();
         return textureRegion;
+    }
+    public int getYAxisKomulator(){
+        return YAxisKomulator;
     }
 
 

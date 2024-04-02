@@ -20,7 +20,6 @@ public class Deathzone {
 
     public Deathzone(Mapvariable mapvariable) {
         this.mapvariable = mapvariable;
-
     }
 
     public void createDeathzone(){
@@ -35,7 +34,7 @@ public class Deathzone {
                 mapvariable.getShape().setAsBox(rect.getWidth() / 2 / BounceOdysseyGame.PPM, rect.getHeight() / 2 / BounceOdysseyGame.PPM);
                 mapvariable.getFdef().shape = mapvariable.getShape();
 
-                mapvariable.getBody().createFixture( mapvariable.getFdef()).setUserData("deathzone");;
+                mapvariable.getBody().createFixture(mapvariable.getFdef()).setUserData("deathzone");;
             }
         }
     }
@@ -48,12 +47,11 @@ public class Deathzone {
                 Fixture fixA = contact.getFixtureA();
                 Fixture fixB = contact.getFixtureB();
 
-                if ("deathzone".equals(fixA.getUserData()) || "deathzone".equals(fixB.getUserData())) {
+                if ("deathzone".equals(fixA.getUserData())&&"Player".equals(fixB.getUserData())  || "deathzone".equals(fixB.getUserData())&&"Player".equals(fixA.getUserData())) {
                     System.out.println("Kollision mit der Deathzone!");
                     DataDisplay.startsavescore=true;
                     GameConstants.START=false;
                     GameConstants.ALIVE = false;
-
                 }
             }
 
