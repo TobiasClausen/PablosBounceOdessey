@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.bounceodyssey.BounceOdysseyGame;
+import com.mygdx.bounceodyssey.Collisiondetection.Collisondetection;
 import com.mygdx.bounceodyssey.ControlSystem.ControlSystemPlayer;
 import com.mygdx.bounceodyssey.DataDisplay.DataDisplay;
 import com.mygdx.bounceodyssey.Objects.Bricks;
@@ -78,6 +79,7 @@ public class Playscreen implements Screen {
     private int mushroomcount=1;
     private Body mushroomBody;
     private List<Mushroom> mushrooms = new ArrayList<>();
+    private Collisondetection collisondetection;
 
 
     public Playscreen(BounceOdysseyGame game) {
@@ -96,8 +98,11 @@ public class Playscreen implements Screen {
         world = new World(new Vector2(0, -100 / BounceOdysseyGame.PPM), true);
         b2dr = new Box2DDebugRenderer();
 
+
         player = new Player(world, b2body);
         player.getPlayerbatch(spriteBatch);
+
+        collisondetection = new Collisondetection();
 
         loadMaps();
         renderer.render();
@@ -156,10 +161,9 @@ public class Playscreen implements Screen {
         gamecam.update();
         renderer.setView(gamecam);
         player.setPosition(player.getX(), player.getY());
-        deathzone.collisondetection();
 
         for (Mushroom mushroom:mushrooms){
-            mushroom.collisondetection(player.getYCoordinate());
+            collisondetection.collisondetection(mushroom.getY(), player.b2body.getPosition().y, mushroom, world);
         }
     }
 
