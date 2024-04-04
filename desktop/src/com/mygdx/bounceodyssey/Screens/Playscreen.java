@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.bounceodyssey.BounceOdysseyGame;
+import com.mygdx.bounceodyssey.Collisiondetection.Collisondetection;
 import com.mygdx.bounceodyssey.DataDisplay.DataDisplay;
 import com.mygdx.bounceodyssey.Objects.Coins;
 import com.mygdx.bounceodyssey.Objects.Newmap;
@@ -33,6 +34,8 @@ import com.mygdx.bounceodyssey.Objects.Pipes;
 import com.mygdx.bounceodyssey.Player.Player;
 import com.mygdx.bounceodyssey.Variables.Mapvariable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 
@@ -72,6 +75,8 @@ public class Playscreen implements Screen {
     public int PlayerX=Gdx.graphics.getWidth()/2-90;
 
     private Integer round=0;
+    private Collisondetection collisondetection;
+    private List<Mushroom> mushrooms = new ArrayList<>();
     public Playscreen(BounceOdysseyGame game) {
         this.game = game;
 
@@ -118,6 +123,7 @@ public class Playscreen implements Screen {
 
     public void update(float dt){
         handleInput(dt);
+        updateMushrooms(dt);
 
         if (player.b2body.getPosition().x>7480||player.b2body.getPosition().x<=1) {
             TransitionMaps();
@@ -144,7 +150,10 @@ public class Playscreen implements Screen {
         renderer.setView(gamecam);
 
         player.setPosition(player.getX(), player.getY());
-        deathzone.collisondetection();
+
+        for (Mushroom mushroom : mushrooms) {
+            collisondetection.collisondetection(mushroom.getY(), player.b2body.getPosition().y, mushroom, world);
+        }
 
     }
 
@@ -166,11 +175,24 @@ public class Playscreen implements Screen {
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
 
-        TextureRegion textureRegion = player.getAnimation();
 
-        if (textureRegion != null) {
+
+        TextureRegion textureRegionPlayer = player.getAnimation();
+        spriteBatch.begin();
+        for (Mushroom mushroom : mushrooms) {
+            TextureRegion textureRegionMushrooms = mushroom.getAnimation();
+            if (textureRegionMushrooms != null) {
+                spriteBatch.draw(textureRegionMushrooms, mushroom.getX(), mushroom.getY());
+            }
+        }
+
+        if (textureRegionPlayer != null) {
+            spriteBatch.draw(textureRegionPlayer, PlayerX, (player.b2body.getPosition().y) * 5 - player.getYAxisKomulator());
+            spriteBatch.end();
+        }
+        if (textureRegionPlayer != null) {
             spriteBatch.begin();
-            spriteBatch.draw(textureRegion, PlayerX, (player.b2body.getPosition().y)*5-player.getYAxisKomulator());
+            spriteBatch.draw(textureRegionPlayer, PlayerX, (player.b2body.getPosition().y)*5-player.getYAxisKomulator());
             spriteBatch.end();
         }
 
@@ -257,14 +279,19 @@ public class Playscreen implements Screen {
         player.newmap(250, player.b2body.getPosition().y);
         round++;
         dataDisplay.setround(round);
-
         TmxMapLoader mapLoader = new TmxMapLoader();
         nextMap = mapLoader.load(nextlevel());
     }
 
     private void callUpMushrooms(int x){
         mushroom = new Mushroom(world, x, 100, b2body);
+        mushrooms.add(mushroom);
 
+    }
+    private void updateMushrooms(float dt) {
+        for (Mushroom mushroom : mushrooms) {
+            mushroom.updateMushroom(player.b2body.getPosition().x, player.b2body.getPosition().y);
+        }
     }
 
 }

@@ -73,11 +73,11 @@ public class Mushroom extends Sprite {
     public float getY(){
         return b2body.getPosition().y;
     }
+    public float getX(){return b2body.getPosition().x;}
 
 
 
     public void dead(){
-
-
+        System.out.println("mushroomdead");
     }
 }

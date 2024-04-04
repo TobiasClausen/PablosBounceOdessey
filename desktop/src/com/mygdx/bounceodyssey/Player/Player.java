@@ -57,7 +57,7 @@ private int YAxisKomulator=90;
         shape.setRadius(5/BounceOdysseyGame.PPM);
         fdef.shape = shape;
 
-        b2body.createFixture(fdef);
+        b2body.createFixture(fdef).setUserData("Player");;
         b2body.setLinearDamping(5);
 
         shape.dispose();
