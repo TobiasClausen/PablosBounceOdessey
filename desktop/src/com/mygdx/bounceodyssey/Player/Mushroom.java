@@ -25,8 +25,8 @@ public class Mushroom extends Sprite {
     int vectorX=0;
     int vectorY=-10;
 
-    private int xKomulator=10;
-    private int yKomulator=25;
+    private int xKomulator;
+    private int yKomulator;
 
 
 
@@ -35,6 +35,8 @@ public class Mushroom extends Sprite {
         this.x=x;
         this.y=y;
         this.b2body=b2body;
+        xKomulator=10;
+        yKomulator=25;
         defineMushroom();
         rand = new Random();
         animationsrendererMushroom = new AnimationsrendererMushroom(world);
@@ -50,7 +52,6 @@ public class Mushroom extends Sprite {
         CircleShape shape = new CircleShape();
         shape.setRadius(5/BounceOdysseyGame.PPM);
         fdef.shape = shape;
-
         b2body.createFixture(fdef).setUserData("Mushroom");;
         b2body.setLinearDamping(5);
 

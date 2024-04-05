@@ -190,8 +190,8 @@ public class Playscreen implements Screen {
         spriteBatch.begin();
         for (Mushroom mushroom : mushrooms) {
             TextureRegion textureRegionMushrooms = mushroom.getAnimation();
-            if (textureRegionMushrooms != null&& mushroom.getX()-player.b2body.getPosition().x<400) {
-                spriteBatch.draw(textureRegionMushrooms, PlayerX+mushroom.getX()-player.b2body.getPosition().x+mushroom.getXKomulator(), mushroom.getY() * 5 - mushroom.getYKomulator());
+            if (textureRegionMushrooms != null&& mushroom.getX()-player.b2body.getPosition().x<400&& mushroom.getYKomulator() >0) {
+                spriteBatch.draw(textureRegionMushrooms, PlayerX +   (mushroom.getX() - player.b2body.getPosition().x)*1-50, mushroom.getY() * 5 - mushroom.getYKomulator());
             }
         }
 
