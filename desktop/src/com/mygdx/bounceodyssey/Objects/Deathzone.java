@@ -13,7 +13,6 @@ public class Deathzone {
 
     public Deathzone(Mapvariable mapvariable) {
         this.mapvariable = mapvariable;
-
     }
 
     public void createDeathzone(){
@@ -28,8 +27,13 @@ public class Deathzone {
                 mapvariable.getShape().setAsBox(rect.getWidth() / 2 / BounceOdysseyGame.PPM, rect.getHeight() / 2 / BounceOdysseyGame.PPM);
                 mapvariable.getFdef().shape = mapvariable.getShape();
 
-                mapvariable.getBody().createFixture( mapvariable.getFdef()).setUserData("deathzone");;
+                mapvariable.getBody().createFixture(mapvariable.getFdef()).setUserData("deathzone");;
             }
         }
     }
+
+
+
+
+
 }

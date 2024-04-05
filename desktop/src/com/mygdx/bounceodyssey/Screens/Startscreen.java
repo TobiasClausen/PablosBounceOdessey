@@ -46,7 +46,7 @@ public class Startscreen implements Screen {
     private Texture texture;
     private BitmapFont font;
     TextButton startbutton;
-    String score = "somthing went terribly wrong";
+    String score = "somthing went wrong";
     private Body b2body;
     private World world;
 

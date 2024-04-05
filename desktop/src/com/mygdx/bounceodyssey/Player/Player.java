@@ -22,7 +22,8 @@ public class Player extends Sprite {
     AnimationrendererPlayer animationrendererPlayer;
     public World world;
     public Body b2body;
-private int YAxisKomulator=90;
+
+    private int YAxisKomulator=90;
     public int x=400;
     public int y=32;
 
@@ -43,13 +44,14 @@ private int YAxisKomulator=90;
         this.world=world;
         this.b2body=b2body;
         definePlayer();
-        animationrendererPlayer = new AnimationrendererPlayer(world);
+         animationrendererPlayer = new AnimationrendererPlayer(world);
     }
     public void definePlayer(){
-        GameConstants gc=new GameConstants();
+        GameConstants gc = new GameConstants();
         BodyDef bdef = new BodyDef();
         bdef.position.set(x/ BounceOdysseyGame.PPM, y/BounceOdysseyGame.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
+
 
         b2body = world.createBody(bdef);
         FixtureDef fdef = new FixtureDef();
@@ -57,7 +59,7 @@ private int YAxisKomulator=90;
         shape.setRadius(5/BounceOdysseyGame.PPM);
         fdef.shape = shape;
 
-        b2body.createFixture(fdef).setUserData("Player");;
+        b2body.createFixture(fdef).setUserData("Player");
         b2body.setLinearDamping(5);
 
         shape.dispose();
@@ -65,26 +67,25 @@ private int YAxisKomulator=90;
 
 
 
+
     public void jump(){
         if (jumps>0){
-            b2body.setLinearVelocity(new Vector2(0, 250));
+            b2body.setLinearVelocity(new Vector2(0, 200));
             YAxisKomulator=20;
             --jumps;
-            if (jumps==0){
-                lastdoublejump = 0;
-            }
-
+            lastdoublejump = 0;
 
             if (GameConstants.ALIVE==false){
                 animationrendererPlayer.renderAnimationdead();
             }
             else if(DirectionRight){
+
                 animationrendererPlayer.renderAnimationJumpRight();
             }else{
                 animationrendererPlayer.renderAnimationJumpLeft();
             }
         }else if (jumps<=1){
-            if (lastdoublejump>=jumpcooldown*0.5){
+            if (lastdoublejump>=jumpcooldown*1.5){
                 jumps=2;
             }
         }
@@ -157,21 +158,6 @@ private int YAxisKomulator=90;
     public int getYAxisKomulator(){
         return YAxisKomulator;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
 

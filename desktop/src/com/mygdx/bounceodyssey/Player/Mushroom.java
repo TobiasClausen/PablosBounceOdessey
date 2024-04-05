@@ -25,6 +25,9 @@ public class Mushroom extends Sprite {
     int vectorX=0;
     int vectorY=-10;
 
+    private int xKomulator=10;
+    private int yKomulator=25;
+
 
 
     public Mushroom(World world, int x, int y, Body b2body){
@@ -79,5 +82,13 @@ public class Mushroom extends Sprite {
 
     public void dead(){
         System.out.println("mushroomdead");
+    }
+
+    public int getYKomulator() {
+        return yKomulator;
+    }
+
+    public int getXKomulator() {
+        return xKomulator;
     }
 }

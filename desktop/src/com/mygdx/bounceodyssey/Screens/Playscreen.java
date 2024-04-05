@@ -21,17 +21,17 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.bounceodyssey.BounceOdysseyGame;
 import com.mygdx.bounceodyssey.Collisiondetection.Collisondetection;
-import com.mygdx.bounceodyssey.DataDisplay.DataDisplay;
-import com.mygdx.bounceodyssey.Objects.Coins;
-import com.mygdx.bounceodyssey.Objects.Newmap;
-import com.mygdx.bounceodyssey.Player.Mushroom;
-import com.mygdx.bounceodyssey.Variables.GameConstants;
 import com.mygdx.bounceodyssey.ControlSystem.ControlSystemPlayer;
+import com.mygdx.bounceodyssey.DataDisplay.DataDisplay;
 import com.mygdx.bounceodyssey.Objects.Bricks;
+import com.mygdx.bounceodyssey.Objects.Coins;
 import com.mygdx.bounceodyssey.Objects.Deathzone;
 import com.mygdx.bounceodyssey.Objects.Ground;
+import com.mygdx.bounceodyssey.Objects.Newmap;
 import com.mygdx.bounceodyssey.Objects.Pipes;
+import com.mygdx.bounceodyssey.Player.Mushroom;
 import com.mygdx.bounceodyssey.Player.Player;
+import com.mygdx.bounceodyssey.Variables.GameConstants;
 import com.mygdx.bounceodyssey.Variables.Mapvariable;
 
 import java.util.ArrayList;
@@ -43,13 +43,13 @@ public class Playscreen implements Screen {
 
     Stage stage = new Stage();
     GameConstants gc = new GameConstants();
-    com.mygdx.bounceodyssey.Variables.Mapvariable mapvariable = new Mapvariable();
+    Mapvariable mapvariable = new Mapvariable();
     Newmap newmap = new Newmap(mapvariable);
-    com.mygdx.bounceodyssey.Objects.Deathzone deathzone = new Deathzone(mapvariable);
-    com.mygdx.bounceodyssey.Objects.Ground ground = new Ground(mapvariable);
-    com.mygdx.bounceodyssey.Objects.Pipes pipes = new Pipes(mapvariable);
+    Deathzone deathzone = new Deathzone(mapvariable);
+    Ground ground = new Ground(mapvariable);
+    Pipes pipes = new Pipes(mapvariable);
     Coins coins = new Coins(mapvariable);
-    com.mygdx.bounceodyssey.Objects.Bricks bricks = new Bricks(mapvariable);
+    Bricks bricks = new Bricks(mapvariable);
 
     private World world;
     public Body b2body;
@@ -61,24 +61,32 @@ public class Playscreen implements Screen {
 
     private OrthogonalTiledMapRenderer renderer;
     private DataDisplay dataDisplay;
-    private com.mygdx.bounceodyssey.ControlSystem.ControlSystemPlayer controlSystemPlayer;
+    private ControlSystemPlayer controlSystemPlayer;
 
-    private com.mygdx.bounceodyssey.Player.Player player;
+    private Player player;
 
     private BounceOdysseyGame game;
     private OrthographicCamera gamecam;
     private Viewport gamePort;
 
     private SpriteBatch spriteBatch;
-    private Mushroom mushroom;
 
-    public int PlayerX=Gdx.graphics.getWidth()/2-90;
+    public int PlayerX = Gdx.graphics.getWidth() / 2 - 90;
 
-    private Integer round=0;
-    private Collisondetection collisondetection;
+
+    private Integer round = 0;
+    private Mushroom createmushroom;
+    private int mushroomcount = 1;
+    private Body mushroomBody;
     private List<Mushroom> mushrooms = new ArrayList<>();
+    private Collisondetection collisondetection;
+    private int mushrommY;
+    private int getMushrommX;
+
+
     public Playscreen(BounceOdysseyGame game) {
         this.game = game;
+
 
         spriteBatch = new SpriteBatch();
         gamecam = new OrthographicCamera();
@@ -92,69 +100,72 @@ public class Playscreen implements Screen {
         world = new World(new Vector2(0, -100 / BounceOdysseyGame.PPM), true);
         b2dr = new Box2DDebugRenderer();
 
+
         player = new Player(world, b2body);
         player.getPlayerbatch(spriteBatch);
+
+        collisondetection = new Collisondetection();
 
         loadMaps();
         renderer.render();
     }
 
 
-
-
     @Override
-    public void show(){
+    public void show() {
         Gdx.input.setInputProcessor(stage);
     }
-    public void handleInput(float dt){
+
+    public void handleInput(float dt) {
         controlSystemPlayer.updateInput();
         player.update(dt);
 
-       if (controlSystemPlayer.isJumpbuttonPressed){
-           player.jump();
-           controlSystemPlayer.isJumpbuttonPressed=false;
-       }else if (controlSystemPlayer.isleftbuttonPressed){
-           player.left();
-       }else if (controlSystemPlayer.isrightbuttonPressed){
-           player.right();
-       }
+        if (controlSystemPlayer.isJumpbuttonPressed) {
+            player.jump();
+            controlSystemPlayer.isJumpbuttonPressed = false;
+        } else if (controlSystemPlayer.isleftbuttonPressed) {
+            player.left();
+        } else if (controlSystemPlayer.isrightbuttonPressed) {
+            player.right();
+        }
     }
 
 
-    public void update(float dt){
+    public void update(float dt) {
         handleInput(dt);
         updateMushrooms(dt);
 
-        if (player.b2body.getPosition().x>7480||player.b2body.getPosition().x<=1) {
+
+        if (player.b2body.getPosition().x > 7480 || player.b2body.getPosition().x <= 1) {
             TransitionMaps();
         }
-        if(player.b2body.getPosition().x%250==0){
-            callUpMushrooms((int)player.b2body.getPosition().x);
+        if (player.b2body.getPosition().x > mushroomcount * 250) {
+            mushroomcount++;
+            callUpMushrooms((int) player.b2body.getPosition().x);
+
         }
+
 
         dataDisplay.setScore(player.getXCoordinate());
         dataDisplay.update();
 
-        world.step(1/60f, 6, 2);
+        world.step(1 / 60f, 6, 2);
 
-        if (player.b2body.getPosition().x>202&&player.b2body.getPosition().x<7480) {
+        if (player.b2body.getPosition().x > 202 && player.b2body.getPosition().x < 7480) {
             gamecam.position.x = player.b2body.getPosition().x;
-        } else if (player.b2body.getPosition().x<202) {
+        } else if (player.b2body.getPosition().x < 202) {
             gamecam.position.x = 202;
-        }else if (player.b2body.getPosition().x>7480){
+        } else if (player.b2body.getPosition().x > 7480) {
             gamecam.position.x = 7480;
         }
 
         gamecam.update();
-
         renderer.setView(gamecam);
-
         player.setPosition(player.getX(), player.getY());
 
         for (Mushroom mushroom : mushrooms) {
             collisondetection.collisondetection(mushroom.getY(), player.b2body.getPosition().y, mushroom, world);
         }
-
     }
 
     @Override
@@ -162,7 +173,7 @@ public class Playscreen implements Screen {
         update(delta);
         player.update(delta);
 
-        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         renderer.render();
@@ -175,24 +186,17 @@ public class Playscreen implements Screen {
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
 
-
-
         TextureRegion textureRegionPlayer = player.getAnimation();
         spriteBatch.begin();
         for (Mushroom mushroom : mushrooms) {
             TextureRegion textureRegionMushrooms = mushroom.getAnimation();
-            if (textureRegionMushrooms != null) {
-                spriteBatch.draw(textureRegionMushrooms, mushroom.getX(), mushroom.getY());
+            if (textureRegionMushrooms != null&& mushroom.getX()-player.b2body.getPosition().x<400) {
+                spriteBatch.draw(textureRegionMushrooms, PlayerX+mushroom.getX()-player.b2body.getPosition().x+mushroom.getXKomulator(), mushroom.getY() * 5 - mushroom.getYKomulator());
             }
         }
 
         if (textureRegionPlayer != null) {
             spriteBatch.draw(textureRegionPlayer, PlayerX, (player.b2body.getPosition().y) * 5 - player.getYAxisKomulator());
-            spriteBatch.end();
-        }
-        if (textureRegionPlayer != null) {
-            spriteBatch.begin();
-            spriteBatch.draw(textureRegionPlayer, PlayerX, (player.b2body.getPosition().y)*5-player.getYAxisKomulator());
             spriteBatch.end();
         }
 
@@ -228,16 +232,16 @@ public class Playscreen implements Screen {
         world.dispose();
     }
 
-    public String nextlevel(){
-        String[] Maps = {"Map1.tmx", "Map2.tmx"};
+    public String nextlevel() {
+        String[] Maps = {"Map2.tmx", "Map1.tmx"};
 
         Random rand = new Random();
-        int randomNum = rand.nextInt(Maps.length);
+        int randomNum = rand.nextInt(Maps.length - 1);
 
         return Maps[randomNum];
     }
 
-    public void loadMaps(){
+    public void loadMaps() {
         mapLoader = new TmxMapLoader();
         map = mapLoader.load(nextlevel());
         renderer = new OrthogonalTiledMapRenderer(map, 1 / BounceOdysseyGame.PPM);
@@ -249,7 +253,7 @@ public class Playscreen implements Screen {
         FixtureDef fdef = new FixtureDef();
         Body body;
 
-        if (map !=null){
+        if (map != null) {
             mapvariable.setBdef(bdef);
             mapvariable.setShape(shape);
             mapvariable.setFdef(fdef);
@@ -273,25 +277,25 @@ public class Playscreen implements Screen {
         }
     }
 
-    public void TransitionMaps(){
+    public void TransitionMaps() {
         map = nextMap;
         renderer.setMap(map);
         player.newmap(250, player.b2body.getPosition().y);
         round++;
         dataDisplay.setround(round);
+
         TmxMapLoader mapLoader = new TmxMapLoader();
         nextMap = mapLoader.load(nextlevel());
     }
 
-    private void callUpMushrooms(int x){
-        mushroom = new Mushroom(world, x, 100, b2body);
-        mushrooms.add(mushroom);
-
+    private void callUpMushrooms(int x) {
+        createmushroom = new Mushroom(world, x + 400, 200, mushroomBody);
+        mushrooms.add(createmushroom);
     }
+
     private void updateMushrooms(float dt) {
         for (Mushroom mushroom : mushrooms) {
             mushroom.updateMushroom(player.b2body.getPosition().x, player.b2body.getPosition().y);
         }
     }
-
 }
